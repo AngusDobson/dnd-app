@@ -122,7 +122,4 @@ def main():
 
     user = response['Item']
 
-    # You can now use the 'user' variable in the render_template function.
-    # ...
-
-    return render_template('main.html')
+    return render_template('main.html', user=user)

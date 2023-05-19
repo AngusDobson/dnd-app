@@ -7,7 +7,18 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <title>Tomekeeper - Welcome Traveler!</title>
 </head>
-<body>
-    Welcome Traveler!
+<body class="main-body">
+    <div class="main-div">
+        <div class="main-taskbar">
+            <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo" class="main-logo">
+            <div class="user-info">
+                <h3 class="main-username">{{ user['display_name'] }}</h3>
+                <img src="{{ user['pfp_url'] }}" class="main-pfp">
+            </div>
+        </div>
+        <div class="main-section">
+
+        </div>
+    </div>
 </body>
 </html>
