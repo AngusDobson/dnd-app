@@ -110,6 +110,11 @@ def login():
         return redirect(url_for('main'))
     return render_template('login.html', error_message=None, success_message=success_message)
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
 @app.route('/main')
 def main():
     if 'user' not in session:

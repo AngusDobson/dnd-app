@@ -168,6 +168,43 @@ button:hover {
   border-radius: 20px 20px 0px 0px;
 }
 
+.main-bottombar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color);
+  height: 100px;
+  border-radius: 0px 0px 20px 20px;
+}
+
+.main-bottomtable {
+  border-collapse:collapse;
+  margin-right: 10%;
+}
+
+.main-bottomtable td{
+  padding:2px 20px;
+  word-break:normal;
+}
+
+.main-bottomtable th{
+  padding:4px 20px;
+  word-break:normal;
+}
+
+.main-bottomlogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.main-bottomlogo img {
+  border-radius: 20px;
+  height: 60px;
+  padding-left: 20px;;
+}
+
 .main-section{
   padding: 40px 100px 100px 100px;
 }
@@ -210,7 +247,7 @@ button:hover {
 
 .current-pfp {
   border-radius: 50%;
-  width: 100px;
+  width: 150px;
   margin-bottom: 20px;
 }
 
