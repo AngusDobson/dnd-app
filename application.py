@@ -129,4 +129,75 @@ def profile():
 
     return render_template('profile.html', user=user)
 
+@app.route('/update_pfp', methods=['POST'])
+def update_pfp():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
 
+    file = request.files['new_pfp']
+    if file:
+        # Save file and get the URL, here the function save_file should be implemented by you.
+        new_pfp_url = save_file(file) 
+        users_table.update_item(
+            Key={'username': session['user']['username']},
+            UpdateExpression="set pfp_url = :r",
+            ExpressionAttributeValues={
+                ':r': new_pfp_url
+            }
+        )
+        # Update session data
+        session['user']['pfp_url'] = new_pfp_url
+        return render_template('profile.html', user=session['user'], success_message="Profile picture updated successfully")
+    return render_template('profile.html', user=session['user'], error_message="No file selected")
+
+
+@app.route('/update_userinfo', methods=['POST'])
+def update_userinfo():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    new_display_name = request.form['display_name']
+    new_email = request.form['email']
+    users_table.update_item(
+        Key={'username': session['user']['username']},
+        UpdateExpression="set display_name = :d, email = :e",
+        ExpressionAttributeValues={
+            ':d': new_display_name,
+            ':e': new_email
+        }
+    )
+    # Update session data
+    session['user']['display_name'] = new_display_name
+    session['user']['email'] = new_email
+
+    return render_template('profile.html', user=session['user'], success_message="User information updated successfully")
+
+
+@app.route('/change_password', methods=['POST'])
+def change_password():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    old_password = request.form['old_password']
+    new_password = request.form['new_password']
+    confirm_new_password = request.form['confirm_new_password']
+
+    if session['user']['password'] != old_password:
+        # Old password is incorrect
+        return render_template('profile.html', user=session['user'], error_message="Old password is incorrect")
+
+    if new_password != confirm_new_password:
+        # New passwords do not match
+        return render_template('profile.html', user=session['user'], error_message="New passwords do not match")
+
+    users_table.update_item(
+        Key={'username': session['user']['username']},
+        UpdateExpression="set password = :p",
+        ExpressionAttributeValues={
+            ':p': new_password
+        }
+    )
+    # Update session data
+    session['user']['password'] = new_password
+
+    return render_template('profile.html', user=session['user'], success_message="Password changed successfully")

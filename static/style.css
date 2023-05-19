@@ -36,13 +36,15 @@ a:visited {
 }
 
 .login-error,
-.register-error {
+.register-error,
+.pfedit-error {
   color: var(--error-color);
   margin-top: 2%;
 }
 
 .login-success,
-.register-success {
+.register-success,
+.pfedit-success {
   color: var(--success-color);
   margin-top: 2%;
 }
