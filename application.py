@@ -100,19 +100,26 @@ def login():
         username = request.form['username']
         password = request.form['password']
         response = users_table.get_item(Key={'username': username})
-        # if 'Item' not in response:
-        #     error_message = "Incorrect username or password."
-        #     return render_template('login.html', error_message=error_message)
-        # if response['Item']['password'] != password:
-        #     error_message = "Incorrect username or password."
-        #     return render_template('login.html', error_message=error_message)
-        session['user'] = response['Item']
+        if 'Item' not in response or response['Item']['password'] != password:
+            error_message = "Incorrect username or password."
+            return render_template('login.html', error_message=error_message)
+        session['username'] = username
         return redirect(url_for('main'))
     # return render_template('login.html', error_message=None, success_message=success_message)
 
 @app.route('/main')
 def main():
-    if 'user' not in session:
+    if 'username' not in session:
         abort(403)  # Forbidden, user not logged in
+
+    username = session['username']
+    response = users_table.get_item(Key={'username': username})
+    if 'Item' not in response:
+        abort(403)  # Forbidden, user not logged in
+
+    user = response['Item']
+
+    # You can now use the 'user' variable in the render_template function.
+    # ...
 
     return render_template('main.html')
