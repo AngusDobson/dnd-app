@@ -96,7 +96,7 @@ def register_user():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # success_message = request.args.get('success_message')
+    success_message = request.args.get('success_message')
 
     if request.method == 'POST':
         username = request.form['username']
@@ -109,7 +109,7 @@ def login():
             return render_template('login.html', error_message=error_message)
         session['username'] = username
         return redirect(url_for('main'))
-    # return render_template('login.html', error_message=None, success_message=success_message)
+    return render_template('login.html', error_message=None, success_message=success_message)
 
 @app.route('/main')
 def main():
