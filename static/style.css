@@ -101,19 +101,19 @@ label {
 input {
   display: block;
   width: 100%;
-  margin-bottom: 2%;
-  padding: 1%;
-  border: 0.1% solid #ccc;
-  border-radius: 0.3%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
 button {
   display: inline-block;
   background-color: #007bff;
   color: #fff;
-  padding: 1% 2%;
+  padding: 10px 20px;
   border: none;
-  border-radius: 0.3%;
+  border-radius: 3px;
   cursor: pointer;
 }
 
