@@ -17,6 +17,12 @@
         <div class="right-page">
             <div class="login-container">
                 <h2>Login</h2>
+                {% if error_message %}
+                <p class="login-error">{{ error_message }}</p>
+                {% endif %}
+                {% if success_message %}
+                <p class="login-success">{{ success_message }}</p>
+                {% endif %}
                 <form>
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
