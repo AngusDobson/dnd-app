@@ -104,12 +104,12 @@ def login():
 
         print("DEBUG: username =", username)  # Debug line
 
-        try:
-            response = users_table.get_item(Key={'username': username})
-        except ClientError as e:
-            print(e.response['Error']['Message'])
-            error_message = "There was an error logging in. Please try again."
-            return render_template('login.html', error_message=error_message)
+        # try:
+        #     response = users_table.get_item(Key={'username': username})
+        # except ClientError as e:
+        #     print(e.response['Error']['Message'])
+        #     error_message = "There was an error logging in. Please try again."
+        #     return render_template('login.html', error_message=error_message)
 
         response = users_table.get_item(Key={'username': username})
         if 'Item' not in response or response['Item']['password'] != password:
