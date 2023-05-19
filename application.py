@@ -39,16 +39,16 @@ def register_user():
 
     # Check if the email already exists in the DynamoDB table
     response = users_table.scan(FilterExpression=Attr('email').eq(email))
-    if 'Item' in response:
+    if response.get('Items'):
         error_message = "Sorry! That email is already in use"
         return render_template('register.html', error_message=error_message)
-    
+
     # Check if the username already exists in the DynamoDB table
     response = users_table.scan(FilterExpression=Attr('username').eq(username))
-    if 'Item' in response:
+    if response.get('Items'):
         error_message = "Sorry! That username is already in use"
         return render_template('register.html', error_message=error_message)
-    
+
     # Check if the passwords match
     if password != confirm_password:
         error_message = "Sorry! Passwords do not match"
