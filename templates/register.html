@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Tomekeeper - Registration Page</title>
+</head>
+<body>
+    <div class="book-register">
+        <div class="left-page">
+            <div class="logo-container">
+                <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo" class="logo">
+            </div>
+        </div>
+        <div class="right-page">
+            <div class="login-container">
+                <h2>Register</h2>
+                <form>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="profilePicture">Profile Picture:</label>
+                    <input type="file" id="profilePicture" name="profilePicture">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="/">Login here.</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
