@@ -136,8 +136,8 @@ def update_pfp():
 
     file = request.files['new_pfp']
     if file:
-        # Save file and get the URL, here the function save_file should be implemented by you.
-        new_pfp_url = save_file(file) 
+        # Upload file to S3 and get the URL
+        new_pfp_url = upload_pfp_to_s3(file, bucket_name) 
         users_table.update_item(
             Key={'username': session['user']['username']},
             UpdateExpression="set pfp_url = :r",
@@ -199,5 +199,7 @@ def change_password():
     )
     # Update session data
     session['user']['password'] = new_password
+    session.modified = True 
 
     return render_template('profile.html', user=session['user'], success_message="Password changed successfully")
+
