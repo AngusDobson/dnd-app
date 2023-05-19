@@ -53,6 +53,7 @@ def register_user():
     display_name = request.form['display_name']
     email = request.form['email']
     password = request.form['password']
+    confirm_password = request.form['confirmPassword']
         
     file = request.files['pfp_url']
     if file.filename == '': # No file selected
@@ -63,13 +64,18 @@ def register_user():
     # Check if the email already exists in the DynamoDB table
     response = table.get_item(Key={'email': email})
     if 'Item' in response:
-        error_message = "Sorry! That email already in use"
+        error_message = "Sorry! That email is already in use"
         return render_template('register.html', error_message=error_message)
     
-    # Check if the email already exists in the DynamoDB table
+    # Check if the username already exists in the DynamoDB table
     response = table.get_item(Key={'username': username})
     if 'Item' in response:
-        error_message = "Sorry! That username already in use"
+        error_message = "Sorry! That username is already in use"
+        return render_template('register.html', error_message=error_message)
+    
+    # Check if the passwords match
+    if password != confirm_password:
+        error_message = "Sorry! Password and Confirm Password do not match"
         return render_template('register.html', error_message=error_message)
 
     table.put_item(
@@ -83,3 +89,4 @@ def register_user():
     )
 
     return redirect(url_for('index', success_message='Registration successful!'))
+
