@@ -102,9 +102,8 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        response = users_table.scan(FilterExpression=Attr('username').eq(username))
-
-        if 'Items' not in response or len(response['Items']) == 0 or response['Items'][0]['password'] != password:
+        response = users_table.get_item(Key={'username': username})
+        if 'Item' not in response or response['Item']['password'] != password:
             error_message = "Incorrect username or password."
             return render_template('login.html', error_message=error_message)
         session['username'] = username
