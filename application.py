@@ -147,6 +147,7 @@ def update_pfp():
         )
         # Update session data
         session['user']['pfp_url'] = new_pfp_url
+        session.modified = True 
         return render_template('profile.html', user=session['user'], success_message="Profile picture updated successfully")
     return render_template('profile.html', user=session['user'], error_message="No file selected")
 
@@ -169,6 +170,7 @@ def update_userinfo():
     # Update session data
     session['user']['display_name'] = new_display_name
     session['user']['email'] = new_email
+    session.modified = True 
 
     return render_template('profile.html', user=session['user'], success_message="User information updated successfully")
 
