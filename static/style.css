@@ -35,6 +35,18 @@ a:visited {
   color: var(--primary-color);
 }
 
+.login-error,
+.register-error {
+  color: var(--error-color);
+  margin-top: 20px;
+}
+
+.login-success,
+.register-success {
+  color: var(--success-color);
+  margin-top: 20px;
+}
+
 .book, .book-register {
   display: flex;
   justify-content: center;

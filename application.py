@@ -1,6 +1,9 @@
 import os
 import boto3
-from flask import Flask, render_template, request, redirect, url_for
+from boto3.dynamodb.conditions import Key, Attr
+from functools import reduce
+from botocore.exceptions import ClientError
+from flask import Flask, render_template, request, redirect, url_for, session, abort
 
 application = Flask(__name__)
 app = application
@@ -36,7 +39,7 @@ def forbidden(e):
     return render_template('forbidden.html'), 403
 
 @app.route('/')
-def home():
+def index():
     success_message = request.args.get('success_message')
     return render_template('login.html', success_message=success_message)
 
@@ -57,6 +60,18 @@ def register_user():
     else:
         pfp_url = upload_pfp_to_s3(file, bucket_name)
     
+    # Check if the email already exists in the DynamoDB table
+    response = table.get_item(Key={'email': email})
+    if 'Item' in response:
+        error_message = "Sorry! That email already in use"
+        return render_template('register.html', error_message=error_message)
+    
+    # Check if the email already exists in the DynamoDB table
+    response = table.get_item(Key={'username': username})
+    if 'Item' in response:
+        error_message = "Sorry! That username already in use"
+        return render_template('register.html', error_message=error_message)
+
     table.put_item(
         Item={
             'username': username,
@@ -67,4 +82,4 @@ def register_user():
         }
     )
 
-    return redirect(url_for('home', success_message='Registration successful!'))
+    return redirect(url_for('index', success_message='Registration successful!'))

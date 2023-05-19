@@ -17,7 +17,10 @@
         <div class="right-page">
             <div class="login-container">
                 <h2>Register</h2>
-                <form method="POST" action="/register_user" enctype="multipart/form-data">
+                {% if error_message %}
+                <p class="login-error">{{ error_message }}</p>
+                {% endif %}
+                <form action="/register_user" method="POST" >
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="display_name" required>
                     <label for="username">Username:</label>
@@ -30,9 +33,9 @@
                     <input type="password" id="password" name="password" required>
                     <label for="confirmPassword">Confirm Password:</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" required>
-                    <button type="submit">Register</button>
+                    <button type="submit" name="register">Register</button>
                 </form>                
-                <p>Already have an account? <a href="/">Login here.</a></p>
+                <p>Already have an account? <a href="{{ url_for('index') }}">Login here.</a></p>
             </div>
         </div>
     </div>
