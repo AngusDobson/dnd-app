@@ -127,5 +127,6 @@ def profile():
 
     user = session['user']
 
-    return render_template('profile.html')
+    return render_template('profile.html', user=user)
+
 
