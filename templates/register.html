@@ -20,7 +20,7 @@
                 {% if error_message %}
                 <p class="login-error">{{ error_message }}</p>
                 {% endif %}
-                <form action="/register_user" method="POST" >
+                <form action="/register_user" method="POST" enctype="multipart/form-data">  
                     <label for="name">Name:</label>
                     <input type="text" id="display_name" name="display_name" required>
                     <label for="username">Username:</label>

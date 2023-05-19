@@ -54,11 +54,14 @@ def register_user():
     password = request.form['password']
     confirm_password = request.form['confirm_password']
 
-    file = request.files['pfp_url']
-    if file.filename == '': # No file selected
+    if 'pfp_url' in request.files:
+        file = request.files['pfp_url']
+        if file.filename != '': # File selected
+            pfp_url = upload_pfp_to_s3(file, bucket_name)
+        else: # No file selected
+            pfp_url = 'https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/user_pfp/default_pfp.jpg'
+    else: # No file field in the form
         pfp_url = 'https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/user_pfp/default_pfp.jpg'
-    else:
-        pfp_url = upload_pfp_to_s3(file, bucket_name)
 
     # Check if the email already exists in the DynamoDB table
     response = users_table.scan(FilterExpression=Attr('email').eq(email))
