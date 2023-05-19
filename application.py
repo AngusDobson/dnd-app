@@ -106,36 +106,26 @@ def login():
         if 'Item' not in response or response['Item']['password'] != password:
             error_message = "Incorrect username or password."
             return render_template('login.html', error_message=error_message)
-        session['username'] = username
+        session['user'] = response['Item']
         return redirect(url_for('main'))
     return render_template('login.html', error_message=None, success_message=success_message)
 
 @app.route('/main')
 def main():
-    if 'username' not in session:
+    if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
-    username = session['username']
-    response = users_table.get_item(Key={'username': username})
-    if 'Item' not in response:
-        abort(403)  # Forbidden, user not logged in
-
-    user = response['Item']
+    user = session['user']
 
     return render_template('main.html', user=user)
 
 
 @app.route('/profile')
 def profile():
-    if 'username' not in session:
+    if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
-    username = session['username']
-    response = users_table.get_item(Key={'username': username})
-    if 'Item' not in response:
-        abort(403)  # Forbidden, user not logged in
-
-    user = response['Item']
+    user = session['user']
 
     return render_template('profile.html', current_pfp=user['pfp_url'], username=user['username'], display_name=user['display_name'], email=user['email'])
 
