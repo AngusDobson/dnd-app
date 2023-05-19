@@ -141,8 +141,9 @@ button:hover {
 
 .main-div{
   background-color: var(--accent-color);
-  width: 80%;
   border-radius: 20px;
+  width: 80%;
+  max-width: 900px;
   margin-top: 40px;
   margin-bottom: 40px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); 
@@ -154,12 +155,12 @@ button:hover {
   align-items: center;
   background-color: var(--background-color);
   height: 100px;
-  width: 100%;
   border-radius: 20px 20px 0px 0px;
 }
 
 .main-section{
   padding: 40px 100px 100px 100px;
+  max-width: 500px;
 }
 
 .main-logo {
@@ -168,26 +169,38 @@ button:hover {
   border-radius: 20px;
 }
 
-.main-taskbar .main-pfp {
+.main-pfp {
   height: 50px;
   width: 50px;
   border-radius: 50%;
 }
 
-.main-taskbar .main-username {
+.main-username {
   margin-right: 20px;
 }
 
-.main-taskbar .user-info {
+.main-taskbar .user-info a {
   display: flex;
   align-items: center;
   margin-right: 30px;
 }
-
 
 /* Profile Edit Style */
 
 .pfedit-back {
   display: flex;
   justify-content: right;
+}
+
+.current-pfp {
+  border: 50%;
+  margin-bottom: 20px;
+}
+
+.pfedit-button{
+  float: right;
+}
+
+.pfedit-pfp, .pfedit-userinfo, .pfedit-password{
+  padding-bottom: 50px;
 }
