@@ -8,6 +8,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, a
 application = Flask(__name__)
 app = application
 app.secret_key = os.urandom(24)
+app.debug = True
+
 
 # Configure boto3 client
 boto3.setup_default_session(region_name='ap-southeast-2')
