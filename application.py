@@ -92,36 +92,23 @@ def register_user():
 
     return redirect(url_for('index', success_message='Registration successful!'))
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    username = request.form.get('username')
-    password = request.form.get('password')
+    # success_message = request.args.get('success_message')
 
-    # Check if the username exists in the DynamoDB table
-    response = users_table.get_item(
-        Key={
-            'username': username
-        }
-    )
-
-    if 'Item' not in response:
-        error_message = "Incorrect username or password."
-        return render_template('login.html', error_message=error_message)
-
-    user = response['Item']
-
-    # Check if the password matches
-    if user['password'] != password:
-        error_message = "Incorrect username or password."
-        return render_template('login.html', error_message=error_message)
-
-    # Password matches, save the user to the session and redirect to the main page
-    session['user'] = user
-    return redirect(url_for('main'))
-
-@app.route('/login', methods=['GET'])
-def login_form():
-    return render_template('login.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        response = users_table.get_item(Key={'username': username})
+        if 'Item' not in response:
+            error_message = "Incorrect username or password."
+            return render_template('login.html', error_message=error_message)
+        if response['Item']['password'] != password:
+            error_message = "Incorrect username or password."
+            return render_template('login.html', error_message=error_message)
+        session['user'] = response['Item']
+        return redirect(url_for('main'))
+    # return render_template('login.html', error_message=None, success_message=success_message)
 
 @app.route('/main')
 def main():
