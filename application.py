@@ -111,7 +111,7 @@ def login():
     return render_template('login.html', error_message=None, success_message=success_message)
 
 @app.route('/main')
-def home():
+def main():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
