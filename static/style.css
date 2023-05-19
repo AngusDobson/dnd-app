@@ -11,7 +11,7 @@
   --black: #555555;
 }
 
-body {
+.login-body, .register-body, .forbidden-body {
   font-family: Arial, sans-serif;
   color: var(--black);
   background-color: var(--secondary-color);
@@ -128,17 +128,23 @@ button:hover {
   font-family: Arial, sans-serif;
   color: var(--black);
   background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  min-height: 100vh;
   margin: 0;
 }
 
+.main-body a{
+  color: var(--black);
+}
+
 .main-div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: var(--accent-color);
   width: 80%;
-  max-height: 80%;
   border-radius: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); 
 }
 
@@ -149,8 +155,11 @@ button:hover {
   background-color: var(--background-color);
   height: 100px;
   width: 100%;
-  margin-bottom: 100px;
   border-radius: 20px 20px 0px 0px;
+}
+
+.main-section{
+  padding: 40px 100px 100px 100px;
 }
 
 .main-logo {
@@ -173,4 +182,12 @@ button:hover {
   display: flex;
   align-items: center;
   margin-right: 30px;
+}
+
+
+/* Profile Edit Style */
+
+.pfedit-back {
+  display: flex;
+  justify-content: right;
 }

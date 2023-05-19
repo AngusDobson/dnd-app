@@ -123,3 +123,19 @@ def main():
     user = response['Item']
 
     return render_template('main.html', user=user)
+
+
+@app.route('/profile')
+def profile():
+    if 'username' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['username']
+    response = users_table.get_item(Key={'username': username})
+    if 'Item' not in response:
+        abort(403)  # Forbidden, user not logged in
+
+    user = response['Item']
+
+    return render_template('profile.html', current_pfp=user['pfp_url'], username=user['username'], display_name=user['display_name'], email=user['email'])
+
