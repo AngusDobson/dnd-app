@@ -160,7 +160,6 @@ button:hover {
 
 .main-section{
   padding: 40px 100px 100px 100px;
-  max-width: 500px;
 }
 
 .main-logo {
@@ -193,7 +192,7 @@ button:hover {
 }
 
 .current-pfp {
-  border: 50%;
+  border-radius: 50%;
   margin-bottom: 20px;
 }
 
