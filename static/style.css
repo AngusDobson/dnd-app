@@ -238,6 +238,64 @@ button:hover {
   text-decoration: none;
 }
 
+/* Home Style */
+
+.home-section{
+  padding: 20px;
+}
+
+.home-banner {
+  width: 100%;
+  background-image: url("https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/banner.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  height: 200px;
+  text-align: left;
+  color: var(--background-color);
+}
+
+.home-banner-content {
+  background-color: var(--primary-color);
+  padding-bottom: 10px;
+  width: 50%;
+  padding-top: 4%;
+  margin-left: 10%;
+}
+
+
+.home-banner-title {
+  margin-left: 10%;
+}
+
+.home-banner-subtitle {
+  margin-left: 10%;
+  padding-left: 10px;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.home-square-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.home-square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;  
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); 
+}
+
 /* Profile Edit Style */
 
 .pfedit-back {
