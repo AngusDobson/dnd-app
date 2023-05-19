@@ -35,7 +35,7 @@ def register_user():
     display_name = request.form['display_name']
     email = request.form['email']
     password = request.form['password']
-    confirm_password = request.form['confirmPassword']
+    confirm_password = request.form['confirm_password']
 
     # Check if the email already exists in the DynamoDB table
     response = users_table.get_item(Key={'email': email})

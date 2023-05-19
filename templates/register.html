@@ -22,7 +22,7 @@
                 {% endif %}
                 <form action="/register_user" method="POST" >
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="display_name" required>
+                    <input type="text" id="display_name" name="display_name" required>
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
                     <label for="email">Email:</label>
@@ -30,7 +30,7 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                     <label for="confirmPassword">Confirm Password:</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
                     <button type="submit" name="register">Register</button>
                 </form>                
                 <p>Already have an account? <a href="{{ url_for('index') }}">Login here.</a></p>
