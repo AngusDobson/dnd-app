@@ -92,3 +92,27 @@ def register_user():
 
     return redirect(url_for('index', success_message='Registration successful!'))
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    success_message = request.args.get('success_message')
+
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        response = users_table.get_item(Key={'username': username})
+        if 'Item' not in response:
+            error_message = "Incorrect username or password."
+            return render_template('login.html', error_message=error_message)
+        if response['Item']['password'] != password:
+            error_message = "Incorrect username or password."
+            return render_template('login.html', error_message=error_message)
+        session['user'] = response['Item']
+        return redirect(url_for('main'))
+    return render_template('login.html', error_message=None, success_message=success_message)
+
+@app.route('/home')
+def home():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+        
+    return render_template('main.html')
