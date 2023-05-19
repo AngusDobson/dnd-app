@@ -9,9 +9,13 @@
 </head>
 <body class="main-body">
     <div class="main-div">
-        <div class="main-taskbar">
-            <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo" class="main-logo">
-            <div class="user-info">
+        <div class="main-taskbar">    
+            <div class="main-logo">
+                <a href="{{ url_for('main') }}">
+                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+                </a>
+            </div>
+            <div class="main-user-info">
                 <a href="/profile" class="profile-link">
                   <h3 class="main-username">{{ user['display_name'] }}</h3>
                   <img src="{{ user['pfp_url'] }}" class="main-pfp">
