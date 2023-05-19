@@ -264,7 +264,6 @@ button:hover {
   margin-left: 10%;
 }
 
-
 .home-banner-title {
   margin-left: 10%;
 }
@@ -280,7 +279,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 100px;
 }
 
 .home-square {
@@ -294,6 +293,11 @@ button:hover {
   text-align: center;
   text-decoration: none;  
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); 
+}
+
+.home-square:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); 
+  text-decoration: none; 
 }
 
 /* Profile Edit Style */
