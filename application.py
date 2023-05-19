@@ -100,12 +100,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
         response = users_table.get_item(Key={'username': username})
-        if 'Item' not in response:
-            error_message = "Incorrect username or password."
-            return render_template('login.html', error_message=error_message)
-        if response['Item']['password'] != password:
-            error_message = "Incorrect username or password."
-            return render_template('login.html', error_message=error_message)
+        # if 'Item' not in response:
+        #     error_message = "Incorrect username or password."
+        #     return render_template('login.html', error_message=error_message)
+        # if response['Item']['password'] != password:
+        #     error_message = "Incorrect username or password."
+        #     return render_template('login.html', error_message=error_message)
         session['user'] = response['Item']
         return redirect(url_for('main'))
     # return render_template('login.html', error_message=None, success_message=success_message)
