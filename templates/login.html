@@ -23,7 +23,7 @@
                 {% if success_message %}
                 <p class="login-success">{{ success_message }}</p>
                 {% endif %}
-                <form action="/login" method="POST">
+                <form action="{{ url_for('login') }}" method="POST">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
                     <label for="password">Password:</label>
