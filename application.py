@@ -110,9 +110,9 @@ def login():
         return redirect(url_for('main'))
     return render_template('login.html', error_message=None, success_message=success_message)
 
-@app.route('/home')
+@app.route('/main')
 def home():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
-        
+
     return render_template('main.html')
