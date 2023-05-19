@@ -35,18 +35,28 @@ a:visited {
   color: var(--primary-color);
 }
 
+.login-success,
+.register-success,
 .login-error,
 .register-error,
-.pfedit-error {
-  color: var(--error-color);
-  margin-top: 2%;
+.pfedit-error, 
+.pfedit-success {
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  color: var(--background-color);
+}
+
+.login-error,
+.register-error,
+.pfedit-error{
+  background-color: var(--error-color);
 }
 
 .login-success,
-.register-success,
-.pfedit-success {
-  color: var(--success-color);
-  margin-top: 2%;
+.pfedit-success{
+  background-color: var(--success-color);
 }
 
 .book, .book-register {
@@ -95,18 +105,15 @@ h2 {
   margin-bottom: 2%;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5%;
-}
-
 input {
   display: block;
-  width: 100%;
+  width: 97%;
+  margin-top: 10px;
   margin-bottom: 20px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 button {
@@ -202,6 +209,7 @@ button:hover {
 
 .current-pfp {
   border-radius: 50%;
+  width: 100px;
   margin-bottom: 20px;
 }
 
