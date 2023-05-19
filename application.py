@@ -37,17 +37,17 @@ def register_user():
     password = request.form['password']
     confirm_password = request.form['confirm_password']
 
-    # Check if the email already exists in the DynamoDB table
-    response = users_table.get_item(Key={'email': email})
-    if 'Item' in response:
-        error_message = "Sorry! That email is already in use"
-        return render_template('register.html', error_message=error_message)
+    # # Check if the email already exists in the DynamoDB table
+    # response = users_table.get_item(Key={'email': email})
+    # if 'Item' in response:
+    #     error_message = "Sorry! That email is already in use"
+    #     return render_template('register.html', error_message=error_message)
     
-    # Check if the username already exists in the DynamoDB table
-    response = users_table.get_item(Key={'username': username})
-    if 'Item' in response:
-        error_message = "Sorry! That username is already in use"
-        return render_template('register.html', error_message=error_message)
+    # # Check if the username already exists in the DynamoDB table
+    # response = users_table.get_item(Key={'username': username})
+    # if 'Item' in response:
+    #     error_message = "Sorry! That username is already in use"
+    #     return render_template('register.html', error_message=error_message)
     
     # Check if the passwords match
     if password != confirm_password:
