@@ -84,7 +84,7 @@ def register_user():
             'display_name': display_name,
             'email': email,
             'password': password,
-            'pfp_url': pfp_url
+            # 'pfp_url': pfp_url
         }
     )
 
