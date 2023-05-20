@@ -372,8 +372,8 @@ def character_selection():
 
     return render_template('character_selection.html', user=session['user'], characters=characters)
 
-@app.route('/character_manage', methods=['GET'])
-def character_manage():
+@app.route('/character_screen', methods=['GET'])
+def character_screen():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
@@ -387,4 +387,4 @@ def character_manage():
     # Parse characters from the response
     characters = response['Items']
 
-    return render_template('character_manage.html', user=session['user'])
+    return render_template('character_screen.html', user=session['user'])
