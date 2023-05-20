@@ -136,7 +136,10 @@ button:hover {
   background-color: #0056b3;
 }
 
-
+.pfedit-back, .notes-back, .character-back {
+  display: flex;
+  justify-content: right;
+}
 
 /* Main Page Style */
 .main-body {
@@ -330,11 +333,6 @@ button:hover {
 }
 
 /* Profile Edit Style */
-
-.pfedit-back, .notes-back {
-  display: flex;
-  justify-content: right;
-}
 
 .pfedit-pfp, .pfedit-userinfo, .pfedit-password {
   display: flex;
