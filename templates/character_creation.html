@@ -23,8 +23,46 @@
             </div>
         </div>
         <div class="main-section">
-
-        </div>
+          <div class="char-creation-info">
+            <h2>Create Your D&D Character</h2>
+            <form action="/create_character" method="POST" class="char-creation-form">
+                <label for="characterName">Character Name:</label>
+                <input type="text" id="characterName" name="character_name" required>
+          
+                <label for="characterClass">Character Class:</label>
+                <select id="characterClass" name="character_class" required>
+                  {% for class in classes %}
+                      <option value="{{ class.index }}">{{ class.name }}</option>
+                  {% endfor %}
+                </select>          
+                <label for="characterRace">Character Race:</label>
+                <select id="characterRace" name="character_race" required>
+                  {% for race in races %}
+                      <option value="{{ race.index }}">{{ race.name }}</option>
+                  {% endfor %}
+                </select>
+          
+                <label for="characterAlignment">Character Alignment:</label>
+                <select id="characterAlignment" name="character_alignment" required>
+                    <option value="">--Please choose an option--</option>
+                    <option value="LG">Lawful Good</option>
+                    <option value="NG">Neutral Good</option>
+                    <option value="CG">Chaotic Good</option>
+                    <option value="LN">Lawful Neutral</option>
+                    <option value="N">Neutral</option>
+                    <option value="CN">Chaotic Neutral</option>
+                    <option value="LE">Lawful Evil</option>
+                    <option value="NE">Neutral Evil</option>
+                    <option value="CE">Chaotic Evil</option>
+                </select>
+          
+                <label for="characterBackground">Character Background:</label>
+                <textarea id="characterBackground" name="character_background" required></textarea>
+          
+                <button type="submit" name="createCharacter" class="main-button">Create Character</button>
+            </form>
+          </div>
+        </div>        
         <div class="main-bottombar">    
             <div class="main-bottomlogo">
                 <a href="{{ url_for('main') }}">

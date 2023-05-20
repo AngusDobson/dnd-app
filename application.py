@@ -1,5 +1,6 @@
 import os
 import boto3
+import requests
 from boto3.dynamodb.conditions import Key, Attr
 from functools import reduce
 from botocore.exceptions import ClientError
@@ -124,7 +125,6 @@ def main():
     user = session['user']
 
     return render_template('main.html', user=user)
-
 
 @app.route('/profile')
 def profile():
@@ -255,7 +255,6 @@ def create_note():
     # Redirect back to the notes page
     return redirect(url_for('notes'))  
 
-
 @app.route('/edit_note', methods=['POST'])
 def edit_note():
     if 'user' not in session:
@@ -280,3 +279,20 @@ def edit_note():
 
     # Redirect back to the notes page
     return redirect(url_for('notes'))  
+
+@app.route('/character_creation', methods=['GET'])
+def create_character():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    classes_response = requests.get('https://www.dnd5eapi.co/api/classes')
+    races_response = requests.get('https://www.dnd5eapi.co/api/races')
+
+    if classes_response.status_code == 200 and races_response.status_code == 200:
+        classes = classes_response.json()['results']
+        races = races_response.json()['results']
+    else:
+        classes = []
+        races = []
+
+    return render_template('character_creation.html', classes=classes, races=races)

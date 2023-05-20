@@ -363,3 +363,43 @@ button:hover {
 .note {
   width: 100%;
 }
+
+/* Character Creation Style */
+
+.char-back {
+  display: flex;
+  justify-content: right;
+}
+
+.char-creation-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding: 20px;
+  padding-bottom: 50px;
+  border: 1px solid var(--background-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+}
+
+.char-creation-info h3 {
+  margin-bottom: 20px;
+}
+
+.char-creation-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid var(--background-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  width: 80%;
+}
+
+.char-creation-form form {
+  width: 95%;
+}
