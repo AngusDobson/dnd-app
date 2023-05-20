@@ -26,7 +26,7 @@
         </a>
       </div>
     </div>
-    <div class="main-section"> <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
+    <div class="main-section"> <a href="{{ url_for('character_screen', character_id=character['character_id']) }}" class="character-back">Go Back</a>
       <div class="character-taskbar">
         <a href="{{ url_for('character_edit', character_id=character['character_id']) }}">Edit</a>
         <p>|</p>
@@ -43,7 +43,7 @@
       <div class="character-container">
         <div class="char-creation-info">
           <h2>Edit Your D&D Character</h2>
-          <form action="/edit_character" method="POST" class="char-creation-form">
+          <form action="/edit_character/{{character['character_id']}}" method="POST" class="char-creation-form">
             <label for="characterName">Character Name:</label>
             <input type="text" id="characterName" name="character_name" value="{{ character['character_name'] }}" required>
           

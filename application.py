@@ -535,6 +535,45 @@ def character_edit(character_id):
 
         return render_template('character_edit.html', user=session['user'], character=character)
 
+@app.route('/edit_character/<character_id>', methods=['POST'])
+def edit_character(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    character = {
+        'username': session['user']['username'],
+        'character_id': character_id,
+        'character_name': request.form['character_name'],
+        'character_race': request.form['character_race'],
+        'character_class': request.form['character_class'],
+        'character_alignment': request.form['character_alignment'],
+        'character_languages': request.form.getlist('selectedLanguages'),
+        'character_appearance': request.form['character_appearance'],
+        'character_personality_traits': request.form['character_personality_traits'],
+        'character_backstory': request.form['character_backstory']
+    }
+
+    characters_table.update_item(
+        Key={
+            'username': session['user']['username'],
+            'character_id': character_id
+        },
+        UpdateExpression="set character_name = :n, character_race = :r, character_class = :c, character_alignment = :a, character_languages = :l, character_appearance = :ap, character_personality_traits = :p, character_backstory = :b",
+        ExpressionAttributeValues={
+            ':n': character['character_name'],
+            ':r': character['character_race'],
+            ':c': character['character_class'],
+            ':a': character['character_alignment'],
+            ':l': character['character_languages'],
+            ':ap': character['character_appearance'],
+            ':p': character['character_personality_traits'],
+            ':b': character['character_backstory']
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+    return redirect(url_for('character_selection'))
+
 @app.route('/character_spells/<character_id>', methods=['GET'])
 def character_spells(character_id):
     if 'user' not in session:

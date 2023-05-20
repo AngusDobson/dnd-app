@@ -24,7 +24,7 @@
                 </a>
             </div>
         </div>
-        <div class="main-section">      <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
+        <div class="main-section">      <a href="{{ url_for('character_screen', character_id=character['character_id']) }}" class="character-back">Go Back</a>
           <div class="character-taskbar">
             <a href="{{ url_for('character_edit', character_id=character['character_id']) }}">Edit</a>
             <p>|</p>
