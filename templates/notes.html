@@ -23,32 +23,39 @@
             </div>
         </div>
         <div class="main-section">
+          <a href="{{ url_for('main') }}" class="notes-back">Go Back</a>
           <div class="note-editor">
-              <form action="/create_note" method="POST">
-                  <label for="noteName">Note Name:</label>
-                  <input type="text" id="noteName" name="note_name" required>
-      
-                  <label for="noteContent">Note Content:</label>
-                  <textarea id="noteContent" name="note_content" required></textarea>
-      
-                  <button type="submit" name="createNote" class="main-button">Create Note</button>
-              </form>
+            <form action="/create_note" method="POST">
+                <label for="noteName">Note Name:</label>
+                <input type="text" id="noteName" name="note_name" required>
+
+                <label for="noteContent">Note Content:</label>
+                <textarea id="noteContent" name="note_content" required></textarea>
+
+                <button type="submit" name="createNote" class="main-button">Create Note</button>
+            </form>
           </div>
           <div class="notes-list">
+            <select id="noteDropdown" onchange="displaySelectedNote()">
+              <option selected disabled>Select a note</option>
               {% for note in user.notes %}
-                  <div class="note">
-                      <form action="/edit_note" method="POST">
-                          <input type="hidden" name="note_id" value="{{ note.id }}">
-                          <label for="noteName">Note Name:</label>
-                          <input type="text" id="noteName" name="note_name" value="{{ note.name }}" required>
-      
-                          <label for="noteContent">Note Content:</label>
-                          <textarea id="noteContent" name="note_content" required>{{ note.content }}</textarea>
-      
-                          <button type="submit" name="editNote" class="main-button">Save Note</button>
-                      </form>
-                  </div>
+                  <option value="{{ note.id }}">{{ note.note_name }}</option>
               {% endfor %}
+            </select>
+            {% for note in user.notes %}
+                <div class="note" id="note-{{ note.id }}" style="display: none;">
+                    <form action="/edit_note" method="POST">
+                        <input type="hidden" name="note_id" value="{{ note.id }}">
+                        <label for="noteName">Note Name:</label>
+                        <input type="text" id="noteName" name="note_name" value="{{ note.note_name }}" required>
+
+                        <label for="noteContent">Note Content:</label>
+                        <textarea id="noteContent" name="note_content" required>{{ note.note_content }}</textarea>
+
+                        <button type="submit" name="editNote" class="main-button">Save Note</button>
+                    </form>
+                </div>
+            {% endfor %}
           </div>
         </div>      
         <div class="main-bottombar">    
@@ -81,4 +88,22 @@
         </div>
     </div>
 </body>
+
+<script>
+  function displaySelectedNote() {
+    var noteId = document.getElementById('noteDropdown').value;
+    
+    // hide all notes
+    var notes = document.getElementsByClassName('note');
+    for (var i = 0; i < notes.length; i++) {
+      notes[i].style.display = "none";
+    }
+    
+    // display selected note
+    if (noteId) {
+      document.getElementById('note-' + noteId).style.display = "block";
+    }
+  }
+  </script>
+  
 </html>
