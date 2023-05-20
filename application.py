@@ -285,4 +285,4 @@ def character_creation():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
-    return render_template('character_creation.html')
+    return render_template('character_creation.html', user=session['user'])
