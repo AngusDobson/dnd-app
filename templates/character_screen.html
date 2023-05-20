@@ -27,13 +27,11 @@
     <div class="main-section">
       <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
       <div class="character-details">
-        <!-- Left side: Image -->
         <div class="character_img">
           <img src="{{ character['character_img'] }}" alt="{{ character['character_name'] }}">
           <button>Upload New Image</button>
         </div>
 
-        <!-- Right side: Details -->
         <div class="character-info">
           <h2>{{ character['character_name'] }}</h2>
           <p><strong>Race:</strong> {{ character['character_race'] }}</p>
@@ -58,7 +56,6 @@
         </div>
       </div>
 
-      <!-- Spells, Equipment, Appearance, Personality Traits, Backstory -->
       <div class="character-extra">
         <h3>Spells</h3>
         <p>{{ character['character_spells']|join(', ') }}</p>

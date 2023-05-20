@@ -390,19 +390,25 @@ def character_manage():
 
     return render_template('character_manage.html', user=session['user'])
 
-@app.route('/character_screen', methods=['GET'])
-def character_screen():
+@app.route('/character_screen/<character_id>', methods=['GET'])
+def character_screen(character_id):
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
     username = session['user']['username']
 
-    # Query DynamoDB to get the characters of the current user
-    response = characters_table.query(
-        KeyConditionExpression=Key('username').eq(username)
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
     )
 
-    # Parse characters from the response
-    characters = response['Items']
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
 
-    return render_template('character_screen.html', user=session['user'])
+        return render_template('character_screen.html', user=session['user'], character=character)
+    else:
+        abort(404)  # Not found, no character with this id

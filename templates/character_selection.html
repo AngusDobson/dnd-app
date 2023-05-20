@@ -26,12 +26,12 @@
           <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
           <h1>Manage Characters</h1>
           <div class="character-grid">
-              {% for character in characters %}
-                  <a href="{{ url_for('character_screen', character_id=character.id) }}" class="character-card"
-                      style="background-image: url({{ character['character_img'] }});">
-                      <span class="character-name">{{ character.character_name }}</span>
-                  </a>
-              {% endfor %}
+            {% for character in characters %}
+            <a href="{{ url_for('character_screen', character_id=character['character_id']) }}" class="character-card"
+                style="background-image: url({{ character['character_img'] }});">
+                <span class="character-name">{{ character.character_name }}</span>
+            </a>
+            {% endfor %}              
           </div>
         </div>                
         <div class="main-bottombar">    
