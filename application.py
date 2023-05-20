@@ -114,7 +114,10 @@ def login():
     return render_template('login.html', error_message=None, success_message=success_message)
 
 @app.route('/logout')
-def logout():
+def logout():    
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
     session.pop('user', None)
     return redirect(url_for('index'))
 
@@ -157,7 +160,6 @@ def update_pfp():
         session.modified = True 
         return render_template('profile.html', user=session['user'], success_message="Profile picture updated successfully")
     return render_template('profile.html', user=session['user'], error_message="No file selected")
-
 
 @app.route('/update_userinfo', methods=['POST'])
 def update_userinfo():
@@ -290,6 +292,9 @@ def character_creation():
 
 @app.route('/create_character', methods=['POST'])
 def create_character():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
     # Perform a scan operation to get the count of existing notes
     response = characters_table.scan(Select='COUNT')
     characters_count = response['Count']
