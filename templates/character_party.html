@@ -24,18 +24,19 @@
         </div>
         <div class="main-section">      <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
           <div class="character-taskbar">
-            <a href="{{ url_for('character_edit', character_id=character.id) }}">Edit</a>
+            <a href="{{ url_for('character_edit', character_id=character['character_id']) }}">Edit</a>
             <p>|</p>
-            <a href="{{ url_for('character_equipment', character_id=character.id) }}">Equipment</a>
+            <a href="{{ url_for('character_equipment', character_id=character['character_id']) }}">Equipment</a>
             <p>|</p>
-            <a href="{{ url_for('character_spells', character_id=character.id) }}">Spells</a>
+            <a href="{{ url_for('character_spells', character_id=character['character_id']) }}">Spells</a>
             <p>|</p>
-            <a href="{{ url_for('character_relationships', character_id=character.id) }}">Relationships</a>
+            <a href="{{ url_for('character_relationships', character_id=character['character_id']) }}">Relationships</a>
             <p>|</p>
-            <a href="{{ url_for('character_party', character_id=character.id) }}">Party</a>
+            <a href="{{ url_for('character_party', character_id=character['character_id']) }}">Party</a>
             <p>|</p>
-            <a href="{{ url_for('character_level_up', character_id=character.id) }}">Level Up</a>
-          </div>   
+            <a href="{{ url_for('character_level_up', character_id=character['character_id']) }}">Level Up</a>
+          </div>
+             
           <div class="character-container">
 
           </div>

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <title>Tomekeeper - Welcome Traveler!</title>
 </head>
 <body class="main-body">
@@ -24,20 +25,47 @@
         </div>
         <div class="main-section">      <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
           <div class="character-taskbar">
-            <a href="{{ url_for('character_edit', character_id=character.id) }}">Edit</a>
+            <a href="{{ url_for('character_edit', character_id=character['character_id']) }}">Edit</a>
             <p>|</p>
-            <a href="{{ url_for('character_equipment', character_id=character.id) }}">Equipment</a>
+            <a href="{{ url_for('character_equipment', character_id=character['character_id']) }}">Equipment</a>
             <p>|</p>
-            <a href="{{ url_for('character_spells', character_id=character.id) }}">Spells</a>
+            <a href="{{ url_for('character_spells', character_id=character['character_id']) }}">Spells</a>
             <p>|</p>
-            <a href="{{ url_for('character_relationships', character_id=character.id) }}">Relationships</a>
+            <a href="{{ url_for('character_relationships', character_id=character['character_id']) }}">Relationships</a>
             <p>|</p>
-            <a href="{{ url_for('character_party', character_id=character.id) }}">Party</a>
+            <a href="{{ url_for('character_party', character_id=character['character_id']) }}">Party</a>
             <p>|</p>
-            <a href="{{ url_for('character_level_up', character_id=character.id) }}">Level Up</a>
-          </div>   
+            <a href="{{ url_for('character_level_up', character_id=character['character_id']) }}">Level Up</a>
+          </div>          
           <div class="character-container">
-
+            <div>
+              <h2>Manage Equipment</h2>
+              <h3>Current Equipment for {{ character['character_name'] }}</h3>
+            </div>
+            <form>
+              <div class="selectionbox-container">
+                <div class="selectionbox-container" id="characterSpells" hidden>
+                  <section class="selectionbox-section">
+                    <div class="selectionbox-div">
+                      <label for="availableSpells">Available Spells:</label>
+                      <select id="availableSpells" size="5" multiple></select>
+                    </div>
+                    <div class="selectionbox-buttons">
+                      <input type="button" id="btnAddSpell" value="&gt;&gt;" />
+                      <input type="button" id="btnRemoveSpell" value="&lt;&lt;" />
+                    </div>
+                    <div class="selectionbox-div">
+                      <label for="selectedSpells">Selected Spells:</label>
+                      <select id="selectedSpells" name="selectedSpells" size="5" multiple></select>
+                      {% for spells in character['character_spells'] %}
+                      <option value="{{ spells }}">{{ spells }}</option>
+                      {% endfor %}
+                    </div>
+                  </section>      
+                </div>
+              </div>          
+              <button type="submit" name="createCharacter" class="main-button">Update Equipment</button>
+            </form>
           </div>
 
         </div>        
@@ -70,5 +98,32 @@
             </table>
         </div>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Fetch spells
+        axios.get('https://www.dnd5eapi.co/api/spells').then(response => {
+          const spellsSelect = document.getElementById('availableSpells');
+          response.data.results.forEach(spell => {
+            const option = document.createElement('option');
+            option.value = spell.index;
+            option.text = spell.name;
+            spellsSelect.add(option);
+          });
+        });
+    
+        // Button functionality spells
+        $("#btnAddSpell").click(function () {
+          var selectedSpells = $("#availableSpells option:selected");
+          $("#selectedSpells").append(selectedSpells);
+        });
+
+        $("#btnRemoveSpell").click(function () {
+          var removedSpells = $("#selectedSpells option:selected");
+          $("#availableSpells").append(removedSpells);
+        });
+      });
+    </script>
+    
 </body>
 </html>
