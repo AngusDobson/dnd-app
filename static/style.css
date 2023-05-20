@@ -45,6 +45,7 @@ a:visited {
   text-align: center;
   padding: 10px;
   font-weight: bold;
+  width: calc(100% - 5px);
   color: var(--background-color);
 }
 
