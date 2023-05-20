@@ -26,10 +26,12 @@
     </div>
     <div class="main-section">
       <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
+      <div class="character-taskbar"></div>
       <div class="character-container">
         <div class="character-details">
           <div class="character_img">
-            <img src="{{ character['character_img'] }}" alt="{{ character['character_name'] }}">
+            <!-- <img src="{{ character['character_img'] }}" alt="{{ character['character_name'] }}"> -->
+            <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/character_img/default_character.png">
             <button>Upload New Image</button>
           </div>
 
