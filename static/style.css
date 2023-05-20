@@ -351,7 +351,6 @@ button:hover {
 .note-editor, .notes-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 20px;
@@ -360,8 +359,12 @@ button:hover {
   background-color: var(--background-color);
 }
 
-.note-editor form, .notes-list form {
-  width: 95%;
+.note-editor form{
+  width: 98%;
+}
+
+.notes-list select {
+  width: calc(98% + 15px);
 }
 
 .note {
