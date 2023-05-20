@@ -1,6 +1,6 @@
 :root {
-  --primary-color: #88ab94;
-  --secondary-color: #90af98;
+  --primary-color: #738d7c;
+  --secondary-color: #698572;
   --background-color: #faf4f2;
   --accent-color: #e8c7b3;
   --success-color: #2e9e4a;
@@ -142,7 +142,7 @@ button:hover {
 .main-body {
   font-family: Arial, sans-serif;
   color: var(--black);
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: flex-start; 
@@ -267,19 +267,21 @@ button:hover {
   background-image: url("https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/banner.jpg");
   background-size: cover;
   background-position: center;
-  border-radius: 5px;
+  border-radius: 15px;
   margin-bottom: 20px;
   height: 400px;
   text-align: left;
   color: var(--background-color);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .home-banner-content {
-  background-color: rgba(136, 171, 148, 0.75);
+  background-color: var(--secondary-color);
   padding-bottom: 10px;
   width: 50%;
   padding-top: 4%;
   margin-left: 10%;
+  border-radius: 0px 0px 15px 15px;
 }
 
 .home-banner-title {
@@ -297,7 +299,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 100px;
+  gap: 7%;
 }
 
 .home-square {
@@ -311,11 +313,20 @@ button:hover {
   text-align: center;
   text-decoration: none;  
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); 
+  transition-property: box-shadow, text-decoration;
+  transition-duration: 0.5s;
 }
 
 .home-square:hover {
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); 
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4); 
   text-decoration: none; 
+}
+
+.home-square-title {
+  padding: 20px;
+  color: var(--background-color);
+  font-size: 150%;
+  font-weight: bold;
 }
 
 /* Profile Edit Style */
@@ -523,7 +534,15 @@ button:hover {
   position: relative;
   height: 200px;
   max-width: 200px;
-  border-radius: 15px;
+  border-radius: 15px;  
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  transition-property: box-shadow, text-decoration;
+  transition-duration: 0.5s;
+}
+
+.character-card:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
 }
 
 .character-name {
