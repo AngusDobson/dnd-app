@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Tomekeeper - Welcome Traveler!</title>
 </head>
 <body class="main-body">
@@ -40,8 +41,13 @@
           <div class="character-container">
             <div>
               <h2>Manage Equipment</h2>
-              <h3>Current Equipment for {{ character['character_name'] }}</h3>
-            </div>
+              <h3>Current Equipment for {{ character['character_name'] }}</h3>              
+              <ul>
+                {% for equipment in character['character_equipment'] %}
+                <li>{{ equipment }}</li>
+                {% endfor %}
+              </ul>
+            </div>            
             <form action="/update_equipment" method="POST">
               <input type="hidden" name="character_id" value="{{ character['character_id'] }}">
               <div class="selectionbox-container">
@@ -56,11 +62,7 @@
                   </div>
                   <div class="selectionbox-div">
                     <label for="selectedEquipment">Current Equipment:</label>
-                    <select id="selectedEquipment" name="selectedEquipment" size="5" multiple>
-                      {% for equipment in character['character_equipment'] %}
-                      <option value="{{ equipment }}">{{ equipment }}</option>
-                      {% endfor %}
-                    </select>
+                    <select id="selectedEquipment" name="selectedEquipment" size="5" multiple></select>
                   </div>
                 </section>
               </div>          
@@ -115,11 +117,11 @@
         // Button functionality equipment
         $("#btnAddEquip").click(function () {
           var selectedEquipment = $("#availableEquipment option:selected");
-          $("#currentEquipment").append(selectedEquipment);
+          $("#selectedEquipment").append(selectedEquipment);
         });
     
         $("#btnRemoveEquip").click(function () {
-          var removedEquipment = $("#currentEquipment option:selected");
+          var removedEquipment = $("#selectedEquipment option:selected");
           $("#availableEquipment").append(removedEquipment);
         });
       });
