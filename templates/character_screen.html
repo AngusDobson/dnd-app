@@ -40,25 +40,46 @@
             <p><strong>Race:</strong> {{ character['character_race'] }}</p>
             <p><strong>Class:</strong> {{ character['character_class'] }}</p>
             <h3>Ability Scores</h3>
-            <ul>
-              {% for ability, score in character['ability_scores'].items() %}
-              <li><strong>{{ ability }}:</strong> {{ score }}</li>
-              {% endfor %}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  {% for ability, score in character['ability_scores'].items() %}
+                  <th>{{ ability[:3] }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {% for ability, score in character['ability_scores'].items() %}
+                  <td>{{ score }}</td>
+                  {% endfor %}
+                </tr>
+              </tbody>
+            </table>
             <p><strong>Proficiency Bonus:</strong> {{ character['character_proficiency_bonus'] }}</p>
             <p><strong>Hit Points:</strong> {{ character['character_hp'] }}</p>
             <p><strong>Armor Class:</strong> {{ character['character_ac'] }}</p>
             <p><strong>Alignment:</strong> {{ character['character_alignment'] }}</p>
             <h3>Skills</h3>
-            <ul>
-              {% for skill, value in character['character_skills'].items() %}
-              <li><strong>{{ skill }}:</strong> {{ value }}</li>
-              {% endfor %}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Skill</th>
+                  <th>Modifier</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for skill, value in character['character_skills'].items() %}
+                <tr>
+                  <td>{{ skill }}</td>
+                  <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
             <p><strong>Languages:</strong> {{ character['character_languages']|join(', ') }}</p>
           </div>
-        </div>
-
+          
         <div class="character-extra">
           <h3>Spells</h3>
           <p>{{ character['character_spells']|join(', ') }}</p>
