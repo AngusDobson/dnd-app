@@ -285,14 +285,4 @@ def character_creation():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
-    classes_response = requests.get('https://www.dnd5eapi.co/api/classes')
-    races_response = requests.get('https://www.dnd5eapi.co/api/races')
-
-    if classes_response.status_code == 200 and races_response.status_code == 200:
-        classes = classes_response.json()['results']
-        races = races_response.json()['results']
-    else:
-        classes = []
-        races = []
-
-    return render_template('character_creation.html', classes=classes, races=races)
+    return render_template('character_creation.html')

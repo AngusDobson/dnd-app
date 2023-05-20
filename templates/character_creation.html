@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <title>Tomekeeper - Welcome Traveler!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 <body class="main-body">
     <div class="main-div">
@@ -26,41 +27,77 @@
           <div class="char-creation-info">
             <h2>Create Your D&D Character</h2>
             <form action="/create_character" method="POST" class="char-creation-form">
-                <label for="characterName">Character Name:</label>
-                <input type="text" id="characterName" name="character_name" required>
+              <label for="characterName">Character Name:</label>
+              <input type="text" id="characterName" name="character_name" required>
+            
+              <label for="characterRace">Character Race:</label>
+              <select id="characterRace" name="character_race" required></select>
+            
+              <label for="characterClass">Character Class:</label>
+              <select id="characterClass" name="character_class" required></select>
           
-                <label for="characterClass">Character Class:</label>
-                <select id="characterClass" name="character_class" required>
-                  {% for class in classes %}
-                      <option value="{{ class.index }}">{{ class.name }}</option>
-                  {% endfor %}
-                </select>         
-                <label for="characterRace">Character Race:</label>
-                <select id="characterRace" name="character_race" required>
-                  {% for race in races %}
-                      <option value="{{ race.index }}">{{ race.name }}</option>
-                  {% endfor %}
-                </select>
+              <label for="abilityScores">Ability Scores:</label>
+              <button id="generateAbilityScores" type="button">Generate Random Ability Scores</button>
+
+              <label for="Strength">Strength:</label>
+              <input id="Strength" name="Strength" required>
+
+              <label for="Dexterity">Dexterity:</label>
+              <input id="Dexterity" name="Dexterity" required>
+
+              <label for="Constitution">Constitution:</label>
+              <input id="Constitution" name="Constitution" required>
+
+              <label for="Intelligence">Intelligence:</label>
+              <input id="Intelligence" name="Intelligence" required>
+
+              <label for="Wisdom">Wisdom:</label>
+              <input id="Wisdom" name="Wisdom" required>
+
+              <label for="Charisma">Charisma:</label>
+              <input id="Charisma" name="Charisma" required>     
           
-                <label for="characterAlignment">Character Alignment:</label>
-                <select id="characterAlignment" name="character_alignment" required>
-                    <option value="">--Please choose an option--</option>
-                    <option value="LG">Lawful Good</option>
-                    <option value="NG">Neutral Good</option>
-                    <option value="CG">Chaotic Good</option>
-                    <option value="LN">Lawful Neutral</option>
-                    <option value="N">Neutral</option>
-                    <option value="CN">Chaotic Neutral</option>
-                    <option value="LE">Lawful Evil</option>
-                    <option value="NE">Neutral Evil</option>
-                    <option value="CE">Chaotic Evil</option>
-                </select>
-          
-                <label for="characterBackground">Character Background:</label>
-                <textarea id="characterBackground" name="character_background" required></textarea>
-          
-                <button type="submit" name="createCharacter" class="main-button">Create Character</button>
-            </form>
+              <label for="characterAlignment">Character Alignment:</label>
+              <select id="characterAlignment" name="character_alignment" required></select>
+
+              <label for="characterAlignment">Alignment:</label>
+              <input type="text" id="characterAlignment" name="character_alignment" required>
+
+              <label for="characterSkills">Skills:</label>
+              <input type="text" id="characterSkills" name="character_skills" required>
+
+              <label for="characterLanguages">Languages:</label>
+              <input type="text" id="characterLanguages" name="character_languages" required>
+
+              <label for="characterHP">Hit Points (HP):</label>
+              <input type="number" id="characterHP" name="character_hp" required>
+
+              <label for="characterAC">Armor Class (AC):</label>
+              <input type="number" id="characterAC" name="character_ac" required>
+
+              <label for="characterProficiencies">Proficiencies:</label>
+              <input type="text" id="characterProficiencies" name="character_proficiencies" required>
+
+              <label for="characterFeats">Feats:</label>
+              <input type="text" id="characterFeats" name="character_feats" required>
+
+              <label for="characterSpells">Spells (if applicable):</label>
+              <input type="text" id="characterSpells" name="character_spells">
+
+              <label for="characterEquipment">Equipment:</label>
+              <input type="text" id="characterEquipment" name="character_equipment" required>
+
+              <label for="characterAppearance">Appearance:</label>
+              <textarea id="characterAppearance" name="character_appearance" required></textarea>
+
+              <label for="characterPersonalityTraits">Personality Traits:</label>
+              <textarea id="characterPersonalityTraits" name="character_personality_traits" required></textarea>
+
+              <label for="characterBackstory">Backstory:</label>
+              <textarea id="characterBackstory" name="character_backstory" required></textarea>
+              
+              <button type="submit" name="createCharacter" class="main-button">Create Character</button>
+          </form>
           </div>
         </div>        
         <div class="main-bottombar">    
@@ -92,5 +129,48 @@
             </table>
         </div>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const fetchClasses = axios.get('https://www.dnd5eapi.co/api/classes');
+          const fetchRaces = axios.get('https://www.dnd5eapi.co/api/races');
+          const fetchAlignments = axios.get('https://www.dnd5eapi.co/api/alignments');
+      
+          axios.all([fetchClasses, fetchRaces, fetchAlignments]).then(axios.spread((classes, races, alignments) => {
+              const classSelect = document.getElementById('characterClass');
+              const raceSelect = document.getElementById('characterRace');
+              const alignmentSelect = document.getElementById('characterAlignment');
+      
+              classes.data.results.forEach(element => {
+                  const option = document.createElement('option');
+                  option.value = element.index;
+                  option.text = element.name;
+                  classSelect.add(option);
+              });
+      
+              races.data.results.forEach(element => {
+                  const option = document.createElement('option');
+                  option.value = element.index;
+                  option.text = element.name;
+                  raceSelect.add(option);
+              });
+      
+              alignments.data.results.forEach(element => {
+                  const option = document.createElement('option');
+                  option.value = element.index;
+                  option.text = element.name;
+                  alignmentSelect.add(option);
+              });
+          }));
+      
+          document.getElementById('generateAbilityScores').addEventListener('click', function() {
+              document.getElementById('Strength').value = Math.floor(Math.random() * 20);
+              document.getElementById('Dexterity').value = Math.floor(Math.random() * 20);
+              document.getElementById('Constitution').value = Math.floor(Math.random() * 20);
+              document.getElementById('Intelligence').value = Math.floor(Math.random() * 20);
+              document.getElementById('Wisdom').value = Math.floor(Math.random() * 20);
+              document.getElementById('Charisma').value = Math.floor(Math.random() * 20);
+          });
+      });
+      </script>
 </body>
 </html>
