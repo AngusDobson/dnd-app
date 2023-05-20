@@ -27,7 +27,7 @@
           <h1>Manage Characters</h1>
           <div class="character-grid">
               {% for character in characters %}
-                  <a href="{{ url_for('character_manage', character_id=character.id) }}" class="character-card"
+                  <a href="{{ url_for('character_screen', character_id=character.id) }}" class="character-card"
                       style="background-image: url({{ character['character_img'] }});">
                       <span class="character-name">{{ character.character_name }}</span>
                   </a>
