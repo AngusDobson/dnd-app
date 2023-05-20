@@ -30,44 +30,45 @@
               <label for="characterName">Character Name:</label>
               <input type="text" id="characterName" name="character_name" required>
             
-              <label for="characterRace">Character Race:</label>
+              <label for="characterRace">Race:</label>
               <select id="characterRace" name="character_race" required></select>
             
-              <label for="characterClass">Character Class:</label>
+              <label for="characterClass">Class:</label>
               <select id="characterClass" name="character_class" required></select>
           
-              <label for="abilityScores">Ability Scores:</label>
+              <label for="abilityScores" class="ability-scores-label">Ability Scores:</label>
+              <div class="ability-scores-container">
+                <div class="ability-score-container">
+                  <label for="Strength">STR:</label>
+                  <input id="Strength" name="Strength" required>
+                </div>
+              
+                <div class="ability-score-container">
+                  <label for="Dexterity">DEX:</label>
+                  <input id="Dexterity" name="Dexterity" required>
+                </div>
+              
+                <div class="ability-score-container">
+                  <label for="Constitution">CON:</label>
+                  <input id="Constitution" name="Constitution" required>
+                </div>
+              
+                <div class="ability-score-container">
+                  <label for="Intelligence">INT:</label>
+                  <input id="Intelligence" name="Intelligence" required>
+                </div>
+              
+                <div class="ability-score-container">
+                  <label for="Wisdom">WIS:</label>
+                  <input id="Wisdom" name="Wisdom" required>
+                </div>
+              
+                <div class="ability-score-container">
+                  <label for="Charisma">CHA:</label>
+                  <input id="Charisma" name="Charisma" required> 
+                </div>
+              </div>              
               <button id="generateAbilityScores" type="button">Generate Random Ability Scores</button>
-
-              <label for="Strength">Strength:</label>
-              <input id="Strength" name="Strength" required>
-
-              <label for="Dexterity">Dexterity:</label>
-              <input id="Dexterity" name="Dexterity" required>
-
-              <label for="Constitution">Constitution:</label>
-              <input id="Constitution" name="Constitution" required>
-
-              <label for="Intelligence">Intelligence:</label>
-              <input id="Intelligence" name="Intelligence" required>
-
-              <label for="Wisdom">Wisdom:</label>
-              <input id="Wisdom" name="Wisdom" required>
-
-              <label for="Charisma">Charisma:</label>
-              <input id="Charisma" name="Charisma" required>     
-          
-              <label for="characterAlignment">Character Alignment:</label>
-              <select id="characterAlignment" name="character_alignment" required></select>
-
-              <label for="characterAlignment">Alignment:</label>
-              <input type="text" id="characterAlignment" name="character_alignment" required>
-
-              <label for="characterSkills">Skills:</label>
-              <input type="text" id="characterSkills" name="character_skills" required>
-
-              <label for="characterLanguages">Languages:</label>
-              <input type="text" id="characterLanguages" name="character_languages" required>
 
               <label for="characterHP">Hit Points (HP):</label>
               <input type="number" id="characterHP" name="character_hp" required>
@@ -75,11 +76,17 @@
               <label for="characterAC">Armor Class (AC):</label>
               <input type="number" id="characterAC" name="character_ac" required>
 
+              <label for="characterAlignment">Alignment:</label>
+              <select id="characterAlignment" name="character_alignment" required></select>
+
+              <label for="characterSkills">Skills:</label>
+              <input type="text" id="characterSkills" name="character_skills" required>
+
               <label for="characterProficiencies">Proficiencies:</label>
               <input type="text" id="characterProficiencies" name="character_proficiencies" required>
 
-              <label for="characterFeats">Feats:</label>
-              <input type="text" id="characterFeats" name="character_feats" required>
+              <label for="characterLanguages">Languages:</label>
+              <input type="text" id="characterLanguages" name="character_languages" required>
 
               <label for="characterSpells">Spells (if applicable):</label>
               <input type="text" id="characterSpells" name="character_spells">
@@ -163,12 +170,30 @@
           }));
       
           document.getElementById('generateAbilityScores').addEventListener('click', function() {
-              document.getElementById('Strength').value = Math.floor(Math.random() * 20);
-              document.getElementById('Dexterity').value = Math.floor(Math.random() * 20);
-              document.getElementById('Constitution').value = Math.floor(Math.random() * 20);
-              document.getElementById('Intelligence').value = Math.floor(Math.random() * 20);
-              document.getElementById('Wisdom').value = Math.floor(Math.random() * 20);
-              document.getElementById('Charisma').value = Math.floor(Math.random() * 20);
+          // Generate six ability scores
+          var abilityScores = [];
+          for (var i = 0; i < 6; i++) {
+            var diceRolls = [];
+            // Roll four 6-sided dice
+            for (var j = 0; j < 4; j++) {
+              diceRolls.push(Math.floor(Math.random() * 6) + 1);
+            }
+            // Sort the dice rolls in descending order
+            diceRolls.sort(function(a, b) {
+              return b - a;
+            });
+            // Record the total of the highest three dice
+            var score = diceRolls[0] + diceRolls[1] + diceRolls[2];
+            abilityScores.push(score);
+          }
+
+          // Update the input fields with the generated ability scores
+          document.getElementById('Strength').value = abilityScores[0];
+          document.getElementById('Dexterity').value = abilityScores[1];
+          document.getElementById('Constitution').value = abilityScores[2];
+          document.getElementById('Intelligence').value = abilityScores[3];
+          document.getElementById('Wisdom').value = abilityScores[4];
+          document.getElementById('Charisma').value = abilityScores[5];
           });
       });
       </script>

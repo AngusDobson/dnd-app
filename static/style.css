@@ -403,3 +403,35 @@ button:hover {
 .char-creation-form form {
   width: 95%;
 }
+
+.char-creation-form label {
+  font-weight: bold;
+}
+
+.ability-scores-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.ability-score-container {
+  width: calc(50% - 20px);
+  margin-bottom: 10px;
+}
+
+.ability-score-container label {
+  display: block;
+}
+
+.ability-score-container input {
+  width: 100%;
+}
+.ability-scores-label{
+  margin-bottom: 20px;
+}
+.char-creation-form button#generateAbilityScores {
+  align-self: flex-end;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
