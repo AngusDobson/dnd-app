@@ -506,3 +506,28 @@ button:hover {
   text-align: center;
   width: 50%;
 }
+
+
+/* Manage Character Style */
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1em;
+}
+
+.character-card {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 200px;
+}
+
+.character-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1em;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}

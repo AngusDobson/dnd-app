@@ -352,7 +352,7 @@ def create_character():
         Item=character
     )
 
-    return render_template('character_manage.html', user=session['user'])
+    return redirect(url_for('character_manage'))
 
 
 @app.route('/character_manage', methods=['GET'])
@@ -360,4 +360,14 @@ def character_manage():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
-    return render_template('character_manage.html', user=session['user'])
+    username = session['user']['username']
+
+    # Query DynamoDB to get the characters of the current user
+    response = characters_table.query(
+        KeyConditionExpression=Key('username').eq(username)
+    )
+
+    # Parse characters from the response
+    characters = response['Items']
+
+    return render_template('character_manage.html', user=session['user'], characters=characters)
