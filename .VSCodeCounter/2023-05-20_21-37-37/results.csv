@@ -1,0 +1,22 @@
+"filename", "language", "pip requirements", "Python", "YAML", "HTML", "CSS", "comment", "blank", "total"
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\application.py", "Python", 0, 353, 0, 0, 0, 27, 87, 467
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\requirements.txt", "pip requirements", 12, 0, 0, 0, 0, 0, 0, 12
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\static\style.css", "CSS", 0, 0, 0, 0, 534, 7, 102, 643
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\template.yaml", "YAML", 0, 0, 40, 0, 0, 0, 1, 41
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_creation.html", "HTML", 0, 0, 0, 495, 0, 0, 52, 547
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_edit.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_equipment.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_level.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_party.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_relationships.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_screen.html", "HTML", 0, 0, 0, 129, 0, 0, 10, 139
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_selection.html", "HTML", 0, 0, 0, 67, 0, 0, 1, 68
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\character_spells.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\forbidden.html", "HTML", 0, 0, 0, 25, 0, 0, 1, 26
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\login.html", "HTML", 0, 0, 0, 38, 0, 0, 1, 39
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\main.html", "HTML", 0, 0, 0, 74, 0, 0, 1, 75
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\notes.html", "HTML", 0, 0, 0, 101, 0, 0, 9, 110
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\profile.html", "HTML", 0, 0, 0, 97, 0, 0, 1, 98
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\register.html", "HTML", 0, 0, 0, 43, 0, 0, 1, 44
+"c:\Users\Angus\Google Drive\Documents\Uni\COSC2639 Cloud Computing\Assignment 3\A3\templates\template.html", "HTML", 0, 0, 0, 57, 0, 0, 2, 59
+"Total", "-", 12, 353, 40, 1468, 534, 34, 281, 2722

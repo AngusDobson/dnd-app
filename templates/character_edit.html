@@ -22,7 +22,23 @@
                 </a>
             </div>
         </div>
-        <div class="main-section">
+        <div class="main-section">      <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
+          <div class="character-taskbar">
+            <a href="{{ url_for('character_edit', character_id=character.id) }}">Edit</a>
+            <p>|</p>
+            <a href="{{ url_for('character_equipment', character_id=character.id) }}">Equipment</a>
+            <p>|</p>
+            <a href="{{ url_for('character_spells', character_id=character.id) }}">Spells</a>
+            <p>|</p>
+            <a href="{{ url_for('character_relationships', character_id=character.id) }}">Relationships</a>
+            <p>|</p>
+            <a href="{{ url_for('character_party', character_id=character.id) }}">Party</a>
+            <p>|</p>
+            <a href="{{ url_for('character_level_up', character_id=character.id) }}">Level Up</a>
+          </div>   
+          <div class="character-container">
+
+          </div>
 
         </div>        
         <div class="main-bottombar">    

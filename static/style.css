@@ -571,10 +571,22 @@ button:hover {
 }
 
 .character-taskbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--primary-color);
   height: 50px;
   width: 100%;
   border-radius: 5px 5px 0px 0px;
+}
+
+.character-taskbar a {
+  color: var(--background-color);
+  margin: 50px;
+}
+
+.character-taskbar p {
+  color: var(--background-color);
 }
 
 .character-top {
