@@ -42,7 +42,8 @@
               <h2>Manage Equipment</h2>
               <h3>Current Equipment for {{ character['character_name'] }}</h3>
             </div>
-            <form>
+            <form action="/update_equipment" method="POST">
+              <input type="hidden" name="character_id" value="{{ character['character_id'] }}">
               <div class="selectionbox-container">
                 <section class="selectionbox-section">
                   <div class="selectionbox-div">
@@ -63,7 +64,7 @@
                   </div>
                 </section>
               </div>          
-              <button type="submit" name="createCharacter" class="main-button">Update Equipment</button>
+              <button type="submit" name="updateEquipment" class="main-button">Update Equipment</button>
             </form>
           </div>
 

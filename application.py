@@ -484,6 +484,35 @@ def character_equipment(character_id):
         character = response['Item']
 
         return render_template('character_equipment.html', user=session['user'], character=character)
+
+@app.route('/update_equipment', methods=['POST'])
+def update_equipment():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Extract character_id from the form
+    character_id = request.form['character_id']
+
+    # Get the new equipment list from the form
+    new_equipment = request.form.getlist('selectedEquipment')
+
+    # Update the character's equipment in DynamoDB
+    response = characters_table.update_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        },
+        UpdateExpression="set character_equipment = :e",
+        ExpressionAttributeValues={
+            ':e': new_equipment
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+    # After updating the equipment, redirect the user back to the character page
+    return redirect(url_for('character_equipment', character_id=character_id))
     
 @app.route('/character_edit/<character_id>', methods=['GET'])
 def character_edit(character_id):
@@ -526,6 +555,35 @@ def character_spells(character_id):
         character = response['Item']
 
         return render_template('character_spells.html', user=session['user'], character=character)
+    
+@app.route('/update_spells', methods=['POST'])
+def update_spells():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Extract character_id from the form
+    character_id = request.form['character_id']
+
+    # Get the new spells list from the form
+    new_spells = request.form.getlist('selectedSpells')
+
+    # Update the character's spells in DynamoDB
+    response = characters_table.update_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        },
+        UpdateExpression="set character_spells = :e",
+        ExpressionAttributeValues={
+            ':e': new_spells
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+    # After updating the spells, redirect the user back to the character page
+    return redirect(url_for('character_spells', character_id=character_id))
 
 @app.route('/character_relationships/<character_id>', methods=['GET'])
 def character_relationships(character_id):

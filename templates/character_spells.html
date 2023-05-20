@@ -36,38 +36,37 @@
             <a href="{{ url_for('character_party', character_id=character['character_id']) }}">Party</a>
             <p>|</p>
             <a href="{{ url_for('character_level_up', character_id=character['character_id']) }}">Level Up</a>
-          </div>          
-          <div class="character-container">
-            <div>
-              <h2>Manage Equipment</h2>
-              <h3>Current Equipment for {{ character['character_name'] }}</h3>
-            </div>
-            <form>
-              <div class="selectionbox-container">
-                <div class="selectionbox-container" id="characterSpells" hidden>
+          </div>
+            <div class="character-container">
+              <div>
+                <h2>Manage Spells</h2>
+                <h3>Current Spells for {{ character['character_name'] }}</h3>
+              </div>
+              <form action="/update_spells" method="POST">
+                <input type="hidden" name="character_id" value="{{ character['character_id'] }}">
+                <div class="selectionbox-container">
                   <section class="selectionbox-section">
                     <div class="selectionbox-div">
                       <label for="availableSpells">Available Spells:</label>
                       <select id="availableSpells" size="5" multiple></select>
                     </div>
                     <div class="selectionbox-buttons">
-                      <input type="button" id="btnAddSpell" value="&gt;&gt;" />
-                      <input type="button" id="btnRemoveSpell" value="&lt;&lt;" />
+                      <input type="button" id="btnAddSpells" value="&gt;&gt;" />
+                      <input type="button" id="btnRemoveSpells" value="&lt;&lt;" />
                     </div>
                     <div class="selectionbox-div">
-                      <label for="selectedSpells">Selected Spells:</label>
-                      <select id="selectedSpells" name="selectedSpells" size="5" multiple></select>
-                      {% for spells in character['character_spells'] %}
-                      <option value="{{ spells }}">{{ spells }}</option>
-                      {% endfor %}
+                      <label for="selectedSpells">Current Spells:</label>
+                      <select id="selectedSpells" name="selectedSpells" size="5" multiple>
+                        {% for spell in character['character_spells'] %}
+                        <option value="{{ spell }}">{{ spell }}</option>
+                        {% endfor %}
+                      </select>
                     </div>
-                  </section>      
-                </div>
-              </div>          
-              <button type="submit" name="createCharacter" class="main-button">Update Equipment</button>
-            </form>
-          </div>
-
+                  </section>
+                </div>          
+                <button type="submit" name="updateSpells" class="main-button">Update Spells</button>
+              </form>
+            </div>
         </div>        
         <div class="main-bottombar">    
             <div class="main-bottomlogo">
