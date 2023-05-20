@@ -1,58 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <title>Tomekeeper - Welcome Traveler!</title>
-</head>
-<body class="main-body">
-    <div class="main-div">
-        <div class="main-taskbar">    
-            <div class="main-logo">
-                <a href="{{ url_for('main') }}">
-                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
-                </a>
-            </div>
-            <div class="main-user-info">
-                <a href="/profile" class="profile-link">
-                  <h3 class="main-username">{{ user['display_name'] }}</h3>
-                  <img src="{{ user['pfp_url'] }}" class="main-pfp">
-                </a>
-            </div>
-        </div>
-        <div class="main-section">
 
-        </div>        
-        <div class="main-bottombar">    
-            <div class="main-bottomlogo">
-                <a href="{{ url_for('main') }}">
-                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
-                </a>
-            </div>
-            <table class="main-bottomtable">
-                <thead>
-                  <tr>
-                    <th><a href="{{ url_for('main') }}">Home</a></th>
-                    <th><a href="{{ url_for('main') }}">Character</a></th>
-                    <th><a href="/logout">Logout</a></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="/profile">Profile</a></td>
-                    <td><a href="/character_creation">Create</a></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><a href="/about">About</a></td>
-                    <td><a href="/character_selection">Selection</a></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <title>Tomekeeper - Welcome Traveler!</title>
+</head>
+
+<body class="main-body">
+  <div class="main-div">
+    <div class="main-taskbar">
+      <div class="main-logo">
+        <a href="{{ url_for('main') }}">
+          <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+        </a>
+      </div>
+      <div class="main-user-info">
+        <a href="/profile" class="profile-link">
+          <h3 class="main-username">{{ user['display_name'] }}</h3>
+          <img src="{{ user['pfp_url'] }}" class="main-pfp">
+        </a>
+      </div>
     </div>
+    <div class="main-section">
+      <div class="character-details">
+        <!-- Left side: Image -->
+        <div class="character-image">
+          <img src="{{ character['character_img'] }}" alt="{{ character['character_name'] }}">
+          <button>Upload New Image</button>
+        </div>
+
+        <!-- Right side: Details -->
+        <div class="character-info">
+          <h2>{{ character['character_name'] }}</h2>
+          <p><strong>Race:</strong> {{ character['character_race'] }}</p>
+          <p><strong>Class:</strong> {{ character['character_class'] }}</p>
+          <h3>Ability Scores</h3>
+          <ul>
+            {% for ability, score in character['ability_scores'].items() %}
+            <li><strong>{{ ability }}:</strong> {{ score }}</li>
+            {% endfor %}
+          </ul>
+          <p><strong>Proficiency Bonus:</strong> {{ character['character_proficiency_bonus'] }}</p>
+          <p><strong>Hit Points:</strong> {{ character['character_hp'] }}</p>
+          <p><strong>Armor Class:</strong> {{ character['character_ac'] }}</p>
+          <p><strong>Alignment:</strong> {{ character['character_alignment'] }}</p>
+          <h3>Skills</h3>
+          <ul>
+            {% for skill, value in character['character_skills'].items() %}
+            <li><strong>{{ skill }}:</strong> {{ value }}</li>
+            {% endfor %}
+          </ul>
+          <p><strong>Languages:</strong> {{ character['character_languages']|join(', ') }}</p>
+        </div>
+      </div>
+
+      <!-- Spells, Equipment, Appearance, Personality Traits, Backstory -->
+      <div class="character-extra">
+        <h3>Spells</h3>
+        <p>{{ character['character_spells']|join(', ') }}</p>
+
+        <h3>Equipment</h3>
+        <p>{{ character['character_equipment']|join(', ') }}</p>
+
+        <h3>Appearance</h3>
+        <p>{{ character['character_appearance'] }}</p>
+
+        <h3>Personality Traits</h3>
+        <p>{{ character['character_personality_traits'] }}</p>
+
+        <h3>Backstory</h3>
+        <p>{{ character['character_backstory'] }}</p>
+      </div>
+    </div>
+
+    <div class="main-bottombar">
+      <div class="main-bottomlogo">
+        <a href="{{ url_for('main') }}">
+          <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+        </a>
+      </div>
+      <table class="main-bottomtable">
+        <thead>
+          <tr>
+            <th><a href="{{ url_for('main') }}">Home</a></th>
+            <th><a href="{{ url_for('main') }}">Character</a></th>
+            <th><a href="/logout">Logout</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/profile">Profile</a></td>
+            <td><a href="/character_creation">Create</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="/about">About</a></td>
+            <td><a href="/character_selection">Selection</a></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
+
 </html>
