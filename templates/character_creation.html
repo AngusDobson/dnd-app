@@ -70,6 +70,9 @@
               </div>              
               <button id="generateAbilityScores" type="button">Generate Random Ability Scores</button>
 
+              <label for="characterProficiencyBonus">Proficiency Bonus:</label>
+              <input type="text" id="characterProficiencyBonus" name="character_proficiency_bonus" required disabled>
+
               <label for="characterHP">Hit Points (HP):</label>
               <input type="number" id="characterHP" name="character_hp" required>
 
@@ -79,11 +82,153 @@
               <label for="characterAlignment">Alignment:</label>
               <select id="characterAlignment" name="character_alignment" required></select>
 
-              <label for="characterSkills">Skills:</label>
-              <input type="text" id="characterSkills" name="character_skills" required>
-
-              <label for="characterProficiencies">Proficiencies:</label>
-              <input type="text" id="characterProficiencies" name="character_proficiencies" required>
+              <label for="characterSkills" class="skills-label">Skills:</label>
+              <div class="skills-container">
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="AcrobaticsSelector" name="AcrobaticsSelector">
+                    <label for="AcrobaticsSelector"></label>
+                    <label for="Acrobatics">Acrobatics:</label>
+                  </div>
+                  <input id="Acrobatics" name="Acrobatics" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="AnimalHandlingSelector" name="AnimalHandlingSelector">
+                    <label for="AnimalHandlingSelector"></label>
+                    <label for="AnimalHandling">Animal Handling:</label>
+                  </div>
+                  <input id="AnimalHandling" name="AnimalHandling" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="ArcanaSelector" name="ArcanaSelector">
+                    <label for="ArcanaSelector"></label>
+                    <label for="Arcana">Arcana:</label>
+                  </div>
+                  <input id="Arcana" name="Arcana" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="AthleticsSelector" name="AthleticsSelector">
+                    <label for="AthleticsSelector"></label>
+                    <label for="Athletics">Athletics:</label>
+                  </div>
+                  <input id="Athletics" name="Athletics" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="DeceptionSelector" name="DeceptionSelector">
+                    <label for="DeceptionSelector"></label>
+                    <label for="Deception">Deception:</label>
+                  </div>
+                  <input id="Deception" name="Deception" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="HistorySelector" name="HistorySelector">
+                    <label for="HistorySelector"></label>
+                    <label for="History">History:</label>
+                  </div>
+                  <input id="History" name="History" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="InsightSelector" name="InsightSelector">
+                    <label for="InsightSelector"></label>
+                    <label for="Insight">Insight:</label>
+                  </div>
+                  <input id="Insight" name="Insight" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="IntimidationSelector" name="IntimidationSelector">
+                    <label for="IntimidationSelector"></label>
+                    <label for="Intimidation">Intimidation:</label>
+                  </div>
+                  <input id="Intimidation" name="Intimidation" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="InvestigationSelector" name="InvestigationSelector">
+                    <label for="InvestigationSelector"></label>
+                    <label for="Investigation">Investigation:</label>
+                  </div>
+                  <input id="Investigation" name="Investigation" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="MedicineSelector" name="MedicineSelector">
+                    <label for="MedicineSelector"></label>
+                    <label for="Medicine">Medicine:</label>
+                  </div>
+                  <input id="Medicine" name="Medicine" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="NatureSelector" name="NatureSelector">
+                    <label for="NatureSelector"></label>
+                    <label for="Nature">Nature:</label>
+                  </div>
+                  <input id="Nature" name="Nature" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="PerceptionSelector" name="PerceptionSelector">
+                    <label for="PerceptionSelector"></label>
+                    <label for="Perception">Perception:</label>
+                  </div>
+                  <input id="Perception" name="Perception" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="PerformanceSelector" name="PerformanceSelector">
+                    <label for="PerformanceSelector"></label>
+                    <label for="Performance">Performance:</label>
+                  </div>
+                  <input id="Performance" name="Performance" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="PersuasionSelector" name="PersuasionSelector">
+                    <label for="PersuasionSelector"></label>
+                    <label for="Persuasion">Persuasion:</label>
+                  </div>
+                  <input id="Persuasion" name="Persuasion" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="ReligionSelector" name="ReligionSelector">
+                    <label for="ReligionSelector"></label>
+                    <label for="Religion">Religion:</label>
+                  </div>
+                  <input id="Religion" name="Religion" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="SleightOfHandSelector" name="SleightOfHandSelector">
+                    <label for="SleightOfHandSelector"></label>
+                    <label for="SleightOfHand">Sleight of Hand:</label>
+                  </div>
+                  <input id="SleightOfHand" name="SleightOfHand" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="StealthSelector" name="StealthSelector">
+                    <label for="StealthSelector"></label>
+                    <label for="Stealth">Stealth:</label>
+                  </div>
+                  <input id="Stealth" name="Stealth" required disabled>
+                </div>
+                <div class="skill-container">
+                  <div class="selector">
+                    <input type="checkbox" id="SurvivalSelector" name="SurvivalSelector">
+                    <label for="SurvivalSelector"></label>
+                    <label for="Survival">Survival:</label>
+                  </div>
+                  <input id="Survival" name="Survival" required disabled>
+                </div>                
+              </div>
 
               <label for="characterLanguages">Languages:</label>
               <input type="text" id="characterLanguages" name="character_languages" required>
@@ -136,40 +281,98 @@
             </table>
         </div>
     </div>
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-          const fetchClasses = axios.get('https://www.dnd5eapi.co/api/classes');
-          const fetchRaces = axios.get('https://www.dnd5eapi.co/api/races');
-          const fetchAlignments = axios.get('https://www.dnd5eapi.co/api/alignments');
-      
-          axios.all([fetchClasses, fetchRaces, fetchAlignments]).then(axios.spread((classes, races, alignments) => {
-              const classSelect = document.getElementById('characterClass');
-              const raceSelect = document.getElementById('characterRace');
-              const alignmentSelect = document.getElementById('characterAlignment');
-      
-              classes.data.results.forEach(element => {
-                  const option = document.createElement('option');
-                  option.value = element.index;
-                  option.text = element.name;
-                  classSelect.add(option);
-              });
-      
-              races.data.results.forEach(element => {
-                  const option = document.createElement('option');
-                  option.value = element.index;
-                  option.text = element.name;
-                  raceSelect.add(option);
-              });
-      
-              alignments.data.results.forEach(element => {
-                  const option = document.createElement('option');
-                  option.value = element.index;
-                  option.text = element.name;
-                  alignmentSelect.add(option);
-              });
-          }));
-      
-          document.getElementById('generateAbilityScores').addEventListener('click', function() {
+        const fetchClasses = axios.get('https://www.dnd5eapi.co/api/classes');
+        const fetchRaces = axios.get('https://www.dnd5eapi.co/api/races');
+        const fetchAlignments = axios.get('https://www.dnd5eapi.co/api/alignments');
+    
+        axios.all([fetchClasses, fetchRaces, fetchAlignments]).then(axios.spread((classes, races, alignments) => {
+          const classSelect = document.getElementById('characterClass');
+          const raceSelect = document.getElementById('characterRace');
+          const alignmentSelect = document.getElementById('characterAlignment');
+    
+          classes.data.results.forEach(element => {
+            const option = document.createElement('option');
+            option.value = element.index;
+            option.text = element.name;
+            classSelect.add(option);
+          });
+    
+          races.data.results.forEach(element => {
+            const option = document.createElement('option');
+            option.value = element.index;
+            option.text = element.name;
+            raceSelect.add(option);
+          });
+    
+          alignments.data.results.forEach(element => {
+            const option = document.createElement('option');
+            option.value = element.index;
+            option.text = element.name;
+            alignmentSelect.add(option);
+          });
+        }));
+    
+        // Set constant proficiency bonus (for levels 1-4)
+        const proficiencyBonus = 2;
+        document.getElementById('characterProficiencyBonus').value = proficiencyBonus;
+        
+        // Define the mapping from skills to abilities
+        const skillToAbility = {
+          'Acrobatics': 'Dexterity',
+          'AnimalHandling': 'Wisdom',
+          'Arcana': 'Intelligence',
+          'Athletics': 'Strength',
+          'Deception': 'Charisma',
+          'History': 'Intelligence',
+          'Insight': 'Wisdom',
+          'Intimidation': 'Charisma',
+          'Investigation': 'Intelligence',
+          'Medicine': 'Wisdom',
+          'Nature': 'Intelligence',
+          'Perception': 'Wisdom',
+          'Performance': 'Charisma',
+          'Persuasion': 'Charisma',
+          'Religion': 'Intelligence',
+          'SleightOfHand': 'Dexterity',
+          'Stealth': 'Dexterity',
+          'Survival': 'Wisdom'
+        };
+    
+        const abilityScoreInputs = Array.from(document.getElementsByClassName('ability-score-container')).map(container => container.getElementsByTagName('input')[0]);
+    
+        abilityScoreInputs.forEach(input => {
+          input.addEventListener('input', function() {
+            // Calculate HP
+            let constitutionScore = parseInt(document.getElementById('Constitution').value) || 0;
+            let baseHP = 10 + constitutionScore; // For simplicity, assuming a base HP of 10 plus the Constitution score
+            document.getElementById('characterHP').value = baseHP;
+    
+            // Calculate AC
+            let dexterityScore = parseInt(document.getElementById('Dexterity').value) || 0;
+            let baseAC = 10 + Math.floor((dexterityScore - 10) / 2); // For simplicity, assuming base AC of 10 plus Dexterity modifier
+            document.getElementById('characterAC').value = baseAC;
+          });
+        });
+    
+        // Add event listeners for each skill when the page loads
+        for (let skill in skillToAbility) {
+          document.getElementById(skill + 'Selector').addEventListener('change', function () {
+            let abilityScore = parseInt(document.getElementById(skillToAbility[skill]).value) || 0;
+            let skillScore = Math.floor((abilityScore - 10) / 2); // Calculate the ability modifier
+    
+            // Apply the proficiency bonus if the checkbox is checked
+            if (document.getElementById(skill + 'Selector').checked) {
+              skillScore += proficiencyBonus;
+            }
+    
+            document.getElementById(skill).value = skillScore;
+          });
+        }
+    
+        document.getElementById('generateAbilityScores').addEventListener('click', function() {
           // Generate six ability scores
           var abilityScores = [];
           for (var i = 0; i < 6; i++) {
@@ -186,7 +389,7 @@
             var score = diceRolls[0] + diceRolls[1] + diceRolls[2];
             abilityScores.push(score);
           }
-
+    
           // Update the input fields with the generated ability scores
           document.getElementById('Strength').value = abilityScores[0];
           document.getElementById('Dexterity').value = abilityScores[1];
@@ -194,8 +397,21 @@
           document.getElementById('Intelligence').value = abilityScores[3];
           document.getElementById('Wisdom').value = abilityScores[4];
           document.getElementById('Charisma').value = abilityScores[5];
+          
+          // Trigger 'input' event on all ability score inputs to update HP and AC
+          abilityScoreInputs.forEach(input => {
+            const event = new Event('input', { bubbles: true });
+            input.dispatchEvent(event);
           });
+    
+          // Trigger 'change' event on all skill selectors to update skill scores
+          for (let skill in skillToAbility) {
+            const event = new Event('change', { bubbles: true });
+            document.getElementById(skill + 'Selector').dispatchEvent(event);
+          }
+        });
       });
-      </script>
+    </script>
+      
 </body>
 </html>
