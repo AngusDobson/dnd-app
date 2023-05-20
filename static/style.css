@@ -535,5 +535,6 @@ button:hover {
   padding-left: 10px;
   padding-bottom: 10px;
   padding-top: 10px;
+  width: calc(100% - 10px);
   border-radius: 0px 0px 15px 15px;
 }
