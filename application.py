@@ -281,7 +281,7 @@ def edit_note():
     return redirect(url_for('notes'))  
 
 @app.route('/character_creation', methods=['GET'])
-def create_character():
+def character_creation():
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
