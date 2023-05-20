@@ -464,3 +464,23 @@ def upload_image(character_id):
     return redirect(url_for('character_screen', character_id=character_id))
 
 
+@app.route('/character_equipment/<character_id>', methods=['GET'])
+def character_equipment(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        return render_template('character_equipment.html', user=session['user'], character=character)

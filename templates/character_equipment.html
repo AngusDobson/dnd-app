@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <title>Tomekeeper - Welcome Traveler!</title>
 </head>
 <body class="main-body">
@@ -35,9 +36,35 @@
             <a href="{{ url_for('character_party', character_id=character.id) }}">Party</a>
             <p>|</p>
             <a href="{{ url_for('character_level_up', character_id=character.id) }}">Level Up</a>
-          </div>   
+          </div>
           <div class="character-container">
-
+            <div>
+              <h2>Manage Equipment</h2>
+              <h3>Current Equipment for {{ character['character_name'] }}</h3>
+            </div>
+            <form>
+              <div class="selectionbox-container">
+                <section class="selectionbox-section">
+                  <div class="selectionbox-div">
+                    <label for="availableEquipment">Available Equipment:</label>
+                    <select id="availableEquipment" size="5" multiple></select>
+                  </div>
+                  <div class="selectionbox-buttons">
+                    <input type="button" id="btnAddEquip" value="&gt;&gt;" />
+                    <input type="button" id="btnRemoveEquip" value="&lt;&lt;" />
+                  </div>
+                  <div class="selectionbox-div">
+                    <label for="selectedEquipment">Current Equipment:</label>
+                    <select id="selectedEquipment" name="selectedEquipment" size="5" multiple>
+                      {% for equipment in character.character_equipment %}
+                      <option value="{{ equipment.index }}">{{ equipment.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </section>
+              </div>          
+              <button type="submit" name="createCharacter" class="main-button">Update Equipment</button>
+            </form>
           </div>
 
         </div>        
@@ -70,5 +97,32 @@
             </table>
         </div>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Fetch equipment
+        axios.get('https://www.dnd5eapi.co/api/equipment').then(response => {
+          const availableEquipmentSelect = document.getElementById('availableEquipment');
+          response.data.results.forEach(equipment => {
+            const option = document.createElement('option');
+            option.value = equipment.index;
+            option.text = equipment.name;
+            availableEquipmentSelect.add(option);
+          });
+        });
+    
+        // Button functionality equipment
+        $("#btnAddEquip").click(function () {
+          var selectedEquipment = $("#availableEquipment option:selected");
+          $("#currentEquipment").append(selectedEquipment);
+        });
+    
+        $("#btnRemoveEquip").click(function () {
+          var removedEquipment = $("#currentEquipment option:selected");
+          $("#availableEquipment").append(removedEquipment);
+        });
+      });
+    </script>
+    
 </body>
 </html>
