@@ -572,7 +572,7 @@ def edit_character(character_id):
         ReturnValues="UPDATED_NEW"
     )
 
-    return redirect(url_for('character_selection'))
+    return redirect(url_for('character_screen', character_id=character_id))
 
 @app.route('/character_spells/<character_id>', methods=['GET'])
 def character_spells(character_id):
