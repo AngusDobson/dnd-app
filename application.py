@@ -372,6 +372,23 @@ def character_selection():
 
     return render_template('character_selection.html', user=session['user'], characters=characters)
 
+@app.route('/character_manage', methods=['GET'])
+def character_manage():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the characters of the current user
+    response = characters_table.query(
+        KeyConditionExpression=Key('username').eq(username)
+    )
+
+    # Parse characters from the response
+    characters = response['Items']
+
+    return render_template('character_manage.html', user=session['user'])
+
 @app.route('/character_screen', methods=['GET'])
 def character_screen():
     if 'user' not in session:
