@@ -484,3 +484,108 @@ def character_equipment(character_id):
         character = response['Item']
 
         return render_template('character_equipment.html', user=session['user'], character=character)
+    
+@app.route('/character_edit/<character_id>', methods=['GET'])
+def character_edit(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        return render_template('character_edit.html', user=session['user'], character=character)
+
+@app.route('/character_spells/<character_id>', methods=['GET'])
+def character_spells(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        return render_template('character_spells.html', user=session['user'], character=character)
+
+@app.route('/character_relationships/<character_id>', methods=['GET'])
+def character_relationships(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        return render_template('character_relationships.html', user=session['user'], character=character)
+    
+@app.route('/character_party/<character_id>', methods=['GET'])
+def character_party(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        return render_template('character_party.html', user=session['user'], character=character)
+    
+@app.route('/character_level_up/<character_id>', methods=['GET'])
+def character_level_up(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        return render_template('character_level_up.html', user=session['user'], character=character)
