@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <title>Tomekeeper - Welcome Traveler!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body class="main-body">
     <div class="main-div">
@@ -229,15 +231,56 @@
                   <input id="Survival" name="Survival" required disabled>
                 </div>                
               </div>
+              <div class="selectionbox-container">
+                <section class="selectionbox-section">
+                  <div class="selectionbox-div">
+                    <label for="availableLanguages">Available Languages:</label>
+                    <select id="availableLanguages" size="5" multiple></select>
+                  </div>
+                  <div class="selectionbox-buttons">
+                    <input type="button" id="btnAddLang" value="&gt;&gt;" />
+                    <input type="button" id="btnRemoveLang" value="&lt;&lt;" />
+                  </div>
+                  <div class="selectionbox-div">
+                    <label for="selectedLanguages">Selected Languages:</label>
+                    <select id="selectedLanguages" size="5" multiple></select>
+                  </div>
+                </section>
+              </div>
 
-              <label for="characterLanguages">Languages:</label>
-              <input type="text" id="characterLanguages" name="character_languages" required>
-
-              <label for="characterSpells">Spells (if applicable):</label>
-              <input type="text" id="characterSpells" name="character_spells">
-
-              <label for="characterEquipment">Equipment:</label>
-              <input type="text" id="characterEquipment" name="character_equipment" required>
+              <div class="selectionbox-container" id="characterSpells" hidden>
+                <section class="selectionbox-section">
+                  <div class="selectionbox-div">
+                    <label for="availableSpells">Available Spells:</label>
+                    <select id="availableSpells" size="5" multiple></select>
+                  </div>
+                  <div class="selectionbox-buttons">
+                    <input type="button" id="btnAddSpell" value="&gt;&gt;" />
+                    <input type="button" id="btnRemoveSpell" value="&lt;&lt;" />
+                  </div>
+                  <div class="selectionbox-div">
+                    <label for="selectedSpells">Selected Spells:</label>
+                    <select id="selectedSpells" size="5" multiple></select>
+                  </div>
+                </section>      
+              </div>   
+              
+              <div class="selectionbox-container">
+                <section class="selectionbox-section">
+                  <div class="selectionbox-div">
+                    <label for="availableEquipment">Available Equipment:</label>
+                    <select id="availableEquipment" size="5" multiple></select>
+                  </div>
+                  <div class="selectionbox-buttons">
+                    <input type="button" id="btnAddEquip" value="&gt;&gt;" />
+                    <input type="button" id="btnRemoveEquip" value="&lt;&lt;" />
+                  </div>
+                  <div class="selectionbox-div">
+                    <label for="selectedEquipment">Selected Equipment:</label>
+                    <select id="selectedEquipment" size="5" multiple></select>
+                  </div>
+                </section>
+              </div>
 
               <label for="characterAppearance">Appearance:</label>
               <textarea id="characterAppearance" name="character_appearance" required></textarea>
@@ -314,6 +357,83 @@
             alignmentSelect.add(option);
           });
         }));
+
+        // Fetch languages
+        axios.get('https://www.dnd5eapi.co/api/languages').then(response => {
+          const languageSelect = document.getElementById('availableLanguages');
+          response.data.results.forEach(language => {
+            const option = document.createElement('option');
+            option.value = language.index;
+            option.text = language.name;
+            languageSelect.add(option);
+          });
+        });
+
+        // Fetch spells
+        axios.get('https://www.dnd5eapi.co/api/spells').then(response => {
+          const spellsSelect = document.getElementById('availableSpells');
+          response.data.results.forEach(spell => {
+            const option = document.createElement('option');
+            option.value = spell.index;
+            option.text = spell.name;
+            spellsSelect.add(option);
+          });
+        });
+
+        // Fetch equipment
+        axios.get('https://www.dnd5eapi.co/api/equipment').then(response => {
+          const equipmentSelect = document.getElementById('availableEquipment');
+          response.data.results.forEach(equipment => {
+            const option = document.createElement('option');
+            option.value = equipment.index;
+            option.text = equipment.name;
+            equipmentSelect.add(option);
+          });
+        });
+
+        // Button functionality language
+        $("#btnAddLang").click(function () {
+          var selectedLanguages = $("#availableLanguages option:selected");
+          $("#selectedLanguages").append(selectedLanguages);
+        });
+
+        $("#btnRemoveLang").click(function () {
+          var removedLanguages = $("#selectedLanguages option:selected");
+          $("#availableLanguages").append(removedLanguages);
+        });
+
+        // Button functionality spells
+        $("#btnAddSpell").click(function () {
+          var selectedSpells = $("#availableSpells option:selected");
+          $("#selectedSpells").append(selectedSpells);
+        });
+
+        $("#btnRemoveSpell").click(function () {
+          var removedSpells = $("#selectedSpells option:selected");
+          $("#availableSpells").append(removedSpells);
+        });
+
+        // Button functionality equipment
+        $("#btnAddEquip").click(function () {
+          var selectedEquipment = $("#availableEquipment option:selected");
+          $("#selectedEquipment").append(selectedEquipment);
+        });
+
+        $("#btnRemoveEquip").click(function () {
+          var removedEquipment = $("#selectedEquipment option:selected");
+          $("#availableEquipment").append(removedEquipment);
+        });
+
+        document.getElementById('characterClass').addEventListener('change', function () {
+          const spellcastingClasses = ['Bard', 'Sorcerer', 'Warlock', 'Wizard', 'Cleric', 'Druid', 'Ranger', 'Paladin'];
+          const selectedClass = this.options[this.selectedIndex].text; 
+
+          if (spellcastingClasses.includes(selectedClass)) {
+            document.getElementById('characterSpells').hidden = false;
+          } else {
+            document.getElementById('characterSpells').hidden = true;
+          }
+        });
     
         // Set constant proficiency bonus (for levels 1-4)
         const proficiencyBonus = 2;
@@ -363,6 +483,7 @@
               }
             }
           });
+          
         });
     
         // Add event listeners for each skill when the page loads
