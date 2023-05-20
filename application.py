@@ -225,7 +225,7 @@ def notes():
     notes = response['Items'] if 'Items' in response else []
 
     for note in notes:
-        note['id'] = str(note['id'])  # Convert the 'id' field to string
+        note['note_id'] = str(note['note_id'])  # Convert the 'id' field to string
 
     return render_template('notes.html', user=session['user'], notes=notes)
 
