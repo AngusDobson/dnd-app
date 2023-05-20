@@ -305,6 +305,7 @@ def create_character():
     character = {
         'username': session['user']['username'],
         'character_id': character_id,
+        'character_img': 'https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/character_img/default_character.png',
         'character_name': request.form['character_name'],
         'character_race': request.form['character_race'],
         'character_class': request.form['character_class'],
