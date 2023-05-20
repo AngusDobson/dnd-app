@@ -182,20 +182,6 @@ def update_userinfo():
 
     return render_template('profile.html', user=session['user'], success_message="User information updated successfully")
 
-@app.route('/notes', methods=['GET'])
-def notes():
-    if 'user' not in session:
-        abort(403)  # Forbidden, user not logged in
-
-    # Fetch notes from DynamoDB
-    response = notes_table.query(
-        KeyConditionExpression=boto3.dynamodb.conditions.Key('username').eq(session['user']['username'])
-    )
-
-    notes = response['Items'] if 'Items' in response else []
-
-    return render_template('notes.html', user=session['user'], notes=notes)
-
 @app.route('/change_password', methods=['POST'])
 def change_password():
     if 'user' not in session:
@@ -225,6 +211,23 @@ def change_password():
     session.modified = True 
 
     return render_template('profile.html', user=session['user'], success_message="Password changed successfully")
+
+@app.route('/notes', methods=['GET'])
+def notes():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    # Fetch notes from DynamoDB
+    response = notes_table.query(
+        KeyConditionExpression=boto3.dynamodb.conditions.Key('username').eq(session['user']['username'])
+    )
+
+    notes = response['Items'] if 'Items' in response else []
+
+    for note in notes:
+        note['id'] = str(note['id'])  # Convert the 'id' field to string
+
+    return render_template('notes.html', user=session['user'], notes=notes)
 
 @app.route('/create_note', methods=['POST'])
 def create_note():
