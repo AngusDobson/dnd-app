@@ -62,7 +62,10 @@
                     </div>
                     <div class="selectionbox-div">
                       <label for="selectedSpells">Current Spells:</label>
-                      <select id="selectedSpells" name="selectedSpells" size="5" multiple></select>
+                      <select id="selectedSpells" name="selectedSpells" size="5" multiple>           
+                        {% for spell in character['character_spells'] %}
+                        <option value="{{ spell }}">{{ spell }}</option>
+                        {% endfor %}</select>
                     </div>
                   </section>
                 </div>          

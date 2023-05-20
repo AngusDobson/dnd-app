@@ -62,7 +62,11 @@
                   </div>
                   <div class="selectionbox-div">
                     <label for="selectedEquipment">Current Equipment:</label>
-                    <select id="selectedEquipment" name="selectedEquipment" size="5" multiple></select>
+                    <select id="selectedEquipment" name="selectedEquipment" size="5" multiple>           
+                      {% for equipment in character['character_equipment'] %}
+                      <option value="{{ equipment }}">{{ equipment }}</option>
+                      {% endfor %}
+                    </select>
                   </div>
                 </section>
               </div>          
