@@ -139,6 +139,7 @@ button:hover {
 .pfedit-back, .notes-back, .character-back {
   display: flex;
   justify-content: right;
+  margin-bottom: 20px;
 }
 
 /* Main Page Style */
@@ -554,4 +555,55 @@ button:hover {
   padding-top: 10px;
   width: calc(100% - 10px);
   border-radius: 0px 0px 15px 15px;
+}
+
+/* Character Screen Style */
+
+.character-container {  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding: 20px;
+  padding-bottom: 50px;
+  border: 1px solid var(--background-color);
+  border-radius: 5px;
+  background-color: var(--background-color);  
+}
+
+.character-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.character-image {
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.character-image img {
+  width: 100%;
+  height: auto;
+}
+
+.character-info {
+  flex: 2;
+}
+
+.character-info h2 {
+  margin-bottom: 1rem;
+}
+
+.character-info p,
+.character-info li {
+  margin-bottom: 0.5rem;
+}
+
+.character-extra {
+  padding: 1rem;
+}
+
+.character-extra h3 {
+  margin-top: 2rem;
 }
