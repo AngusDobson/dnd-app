@@ -1,74 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <title>Tomekeeper - Welcome Traveler!</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Tomekeeper - Welcome Traveler!</title>
 </head>
+
 <body class="main-body">
-    <div class="main-div">
-        <div class="main-taskbar">    
-            <div class="main-logo">
-                <a href="{{ url_for('main') }}">
-                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
-                </a>
-            </div>
-            <div class="main-user-info">
-                <a href="/profile" class="profile-link">
-                  <h3 class="main-username">{{ user['display_name'] }}</h3>
-                  <img src="{{ user['pfp_url'] }}" class="main-pfp">
-                </a>
-            </div>
-        </div>
-        <div class="main-section">      <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
-          <div class="character-taskbar">
-            <a href="{{ url_for('character_edit', character_id=character['character_id']) }}">Edit</a>
-            <p>|</p>
-            <a href="{{ url_for('character_equipment', character_id=character['character_id']) }}">Equipment</a>
-            <p>|</p>
-            <a href="{{ url_for('character_spells', character_id=character['character_id']) }}">Spells</a>
-            <p>|</p>
-            <a href="{{ url_for('character_relationships', character_id=character['character_id']) }}">Relationships</a>
-            <p>|</p>
-            <a href="{{ url_for('character_party', character_id=character['character_id']) }}">Party</a>
-            <p>|</p>
-            <a href="{{ url_for('character_level_up', character_id=character['character_id']) }}">Level Up</a>
-          </div>             
-          <div class="character-container">
-
-          </div>
-
-        </div>        
-        <div class="main-bottombar">    
-            <div class="main-bottomlogo">
-                <a href="{{ url_for('main') }}">
-                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
-                </a>
-            </div>
-            <table class="main-bottomtable">
-                <thead>
-                  <tr>
-                    <th><a href="{{ url_for('main') }}">Home</a></th>
-                    <th><a href="{{ url_for('main') }}">Character</a></th>
-                    <th><a href="/logout">Logout</a></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="/profile">Profile</a></td>
-                    <td><a href="/character_creation">Create</a></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><a href="/about">About</a></td>
-                    <td><a href="/character_selection">Selection</a></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="main-div">
+    <div class="main-taskbar">
+      <div class="main-logo">
+        <a href="{{ url_for('main') }}">
+          <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+        </a>
+      </div>
+      <div class="main-user-info">
+        <a href="/profile" class="profile-link">
+          <h3 class="main-username">{{ user['display_name'] }}</h3>
+          <img src="{{ user['pfp_url'] }}" class="main-pfp">
+        </a>
+      </div>
     </div>
+    <div class="main-section"> <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
+      <div class="character-taskbar">
+        <a href="{{ url_for('character_edit', character_id=character['character_id']) }}">Edit</a>
+        <p>|</p>
+        <a href="{{ url_for('character_equipment', character_id=character['character_id']) }}">Equipment</a>
+        <p>|</p>
+        <a href="{{ url_for('character_spells', character_id=character['character_id']) }}">Spells</a>
+        <p>|</p>
+        <a href="{{ url_for('character_relationships', character_id=character['character_id']) }}">Relationships</a>
+        <p>|</p>
+        <a href="{{ url_for('character_party', character_id=character['character_id']) }}">Party</a>
+        <p>|</p>
+        <a href="{{ url_for('character_level_up', character_id=character['character_id']) }}">Level Up</a>
+      </div>
+      <div class="character-container">
+        <div class="char-creation-info">
+          <h2>Edit Your D&D Character</h2>
+          <form action="/edit_character" method="POST" class="char-creation-form">
+            <label for="characterName">Character Name:</label>
+            <input type="text" id="characterName" name="character_name" value="{{ character['character_name'] }}" required>
+          
+            <label for="characterRace">Race:</label>
+            <select id="characterRace" name="character_race" required>
+              {% for race in races %}
+              <option value="{{ race.index }}" {% if race.index == character['character_race'] %} selected {% endif %}>{{ race.name }}</option>
+              {% endfor %}
+            </select>
+          
+            <label for="characterClass">Class:</label>
+            <select id="characterClass" name="character_class" required>
+              {% for class in classes %}
+              <option value="{{ class.index }}" {% if class.index == character['character_class'] %} selected {% endif %}>{{ class.name }}</option>
+              {% endfor %}
+            </select>
+          
+            <label for="characterAlignment">Alignment:</label>
+            <select id="characterAlignment" name="character_alignment" required>
+              {% for alignment in alignments %}
+              <option value="{{ alignment.index }}" {% if alignment.index == character['character_alignment'] %} selected {% endif %}>{{ alignment.name }}</option>
+              {% endfor %}
+            </select>
+
+            <div class="selectionbox-container">
+              <section class="selectionbox-section">
+                <div class="selectionbox-div">
+                  <label for="availableLanguages">Available Languages:</label>
+                  <select id="availableLanguages" size="5" multiple></select>
+                </div>
+                <div class="selectionbox-buttons">
+                  <input type="button" id="btnAddLang" value="&gt;&gt;" />
+                  <input type="button" id="btnRemoveLang" value="&lt;&lt;" />
+                </div>
+                <div class="selectionbox-div">
+                  <label for="selectedLanguages">Selected Languages:</label>
+                  <select id="selectedLanguages" name="selectedLanguages" size="5" multiple>
+                    {% for language in character['character_languages'] %}
+                    <option value="{{ language }}">{{ language }}</option>
+                    {% endfor %}</select>
+                  </select>
+                </div>
+              </section>
+            </div>
+
+            <label for="characterAppearance">Appearance:</label>
+            <textarea id="characterAppearance" name="character_appearance" required>{{ character['character_appearance'] }}</textarea>
+
+            <label for="characterPersonalityTraits">Personality Traits:</label>
+            <textarea id="characterPersonalityTraits" name="character_personality_traits" required>{{ character['character_personality_traits'] }}</textarea>
+
+            <label for="characterBackstory">Backstory:</label>
+            <textarea id="characterBackstory" name="character_backstory" required>{{ character['character_backstory'] }}</textarea>
+
+            <button type="submit" name="editCharacter" class="main-button">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="main-bottombar">
+      <div class="main-bottomlogo">
+        <a href="{{ url_for('main') }}">
+          <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+        </a>
+      </div>
+      <table class="main-bottomtable">
+        <thead>
+          <tr>
+            <th><a href="{{ url_for('main') }}">Home</a></th>
+            <th><a href="{{ url_for('main') }}">Character</a></th>
+            <th><a href="/logout">Logout</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/profile">Profile</a></td>
+            <td><a href="/character_creation">Create</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="/about">About</a></td>
+            <td><a href="/character_selection">Selection</a></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const fetchClasses = axios.get('https://www.dnd5eapi.co/api/classes');
+      const fetchRaces = axios.get('https://www.dnd5eapi.co/api/races');
+      const fetchAlignments = axios.get('https://www.dnd5eapi.co/api/alignments');
+  
+      axios.all([fetchClasses, fetchRaces, fetchAlignments]).then(axios.spread((classes, races, alignments) => {
+        const classSelect = document.getElementById('characterClass');
+        const raceSelect = document.getElementById('characterRace');
+        const alignmentSelect = document.getElementById('characterAlignment');
+  
+        classes.data.results.forEach(element => {
+          const option = document.createElement('option');
+          option.value = element.index;
+          option.text = element.name;
+          classSelect.add(option);
+        });
+  
+        races.data.results.forEach(element => {
+          const option = document.createElement('option');
+          option.value = element.index;
+          option.text = element.name;
+          raceSelect.add(option);
+        });
+  
+        alignments.data.results.forEach(element => {
+          const option = document.createElement('option');
+          option.value = element.index;
+          option.text = element.name;
+          alignmentSelect.add(option);
+        });
+      }));
+  
+      // Fetch languages
+      axios.get('https://www.dnd5eapi.co/api/languages').then(response => {
+        const languageSelect = document.getElementById('availableLanguages');
+        response.data.results.forEach(language => {
+          const option = document.createElement('option');
+          option.value = language.index;
+          option.text = language.name;
+          languageSelect.add(option);
+        });
+      });
+  
+      // Button functionality language
+      $("#btnAddLang").click(function () {
+        var selectedLanguages = $("#availableLanguages option:selected");
+        $("#selectedLanguages").append(selectedLanguages);
+      });
+  
+      $("#btnRemoveLang").click(function () {
+        var removedLanguages = $("#selectedLanguages option:selected");
+        $("#availableLanguages").append(removedLanguages);
+      });
+    });
+  </script>  
 </body>
+
 </html>
