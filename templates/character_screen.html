@@ -39,7 +39,6 @@
             <h2>{{ character['character_name'] }}</h2>
             <p><strong>Race:</strong> {{ character['character_race'] }}</p>
             <p><strong>Class:</strong> {{ character['character_class'] }}</p>
-            <h3>Ability Scores</h3>
             <table>
               <thead>
                 <tr>
@@ -79,7 +78,8 @@
             </table>
             <p><strong>Languages:</strong> {{ character['character_languages']|join(', ') }}</p>
           </div>
-          
+        </div>
+
         <div class="character-extra">
           <h3>Spells</h3>
           <p>{{ character['character_spells']|join(', ') }}</p>

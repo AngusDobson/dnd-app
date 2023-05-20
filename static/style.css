@@ -586,6 +586,7 @@ button:hover {
 .character_img {
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
 .character_img img {
@@ -596,7 +597,8 @@ button:hover {
 }
 
 .character-info {
-  margin: 20px;
+  margin: 20px;  
+  width: 50%;
 }
 
 .character-info h2 {
