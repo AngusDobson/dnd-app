@@ -38,6 +38,23 @@ def upload_pfp_to_s3(file, bucket_name, acl="public-read"):
 
     return f"https://{bucket_name}.s3.amazonaws.com/user_pfp/{file.filename}"
 
+def upload_charcterimg_to_s3(file, bucket_name, acl="public-read"):
+    try:
+        s3.upload_fileobj(
+            file,
+            bucket_name,
+            f"charcter_img/{file.filename}",
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        print("Something Happened: ", e)
+        return e
+
+    return f"https://{bucket_name}.s3.amazonaws.com/charcter_img/{file.filename}"
+
 @app.errorhandler(403)
 def forbidden(e):
     return render_template('forbidden.html'), 403
@@ -355,7 +372,6 @@ def create_character():
 
     return redirect(url_for('character_selection'))
 
-
 @app.route('/character_selection', methods=['GET'])
 def character_selection():
     if 'user' not in session:
@@ -412,3 +428,21 @@ def character_screen(character_id):
         return render_template('character_screen.html', user=session['user'], character=character)
     else:
         abort(404)  # Not found, no character with this id
+
+@app.route('/upload_image/<character_id>', methods=['POST'])
+def upload_image(character_id):
+    if 'character_image' not in request.files:
+        return redirect(url_for('character_screen', character_id=character_id))
+
+    file = request.files['character_image']
+
+    if file.filename == '':
+        return redirect(url_for('character_screen', character_id=character_id))
+
+    if file:
+        response = upload_charcterimg_to_s3(file, bucket_name)
+        if isinstance(response, Exception): 
+            return str(response) 
+
+    return redirect(url_for('character_screen', character_id=character_id))
+
