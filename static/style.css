@@ -333,3 +333,54 @@ button:hover {
 .pfedit-pfp, .pfedit-userinfo, .pfedit-password{
   padding-bottom: 50px;
 }
+
+/* Notes Style */
+
+.note-editor, .notes-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.note-editor form, .notes-list form {
+  width: 95%;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.note {
+  width: 100%;
+}
