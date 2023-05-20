@@ -18,6 +18,7 @@ dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
 users_table = dynamodb.Table('users')
 notes_table = dynamodb.Table('notes')
+characters_table = dynamodb.Table('characters')
 bucket_name = 'dnd-app-bucket'
 
 def upload_pfp_to_s3(file, bucket_name, acl="public-read"):
@@ -286,3 +287,72 @@ def character_creation():
         abort(403)  # Forbidden, user not logged in
 
     return render_template('character_creation.html', user=session['user'])
+
+@app.route('/create_character', methods=['POST'])
+def create_character():
+    # Perform a scan operation to get the count of existing notes
+    response = characters_table.scan(Select='COUNT')
+    characters_count = response['Count']
+
+    # Generate the note ID based on the note count
+    character_id = str(characters_count + 1)
+
+    character = {
+        'username': session['user']['username'],
+        'character_id': character_id,
+        'character_name': request.form['character_name'],
+        'character_race': request.form['character_race'],
+        'character_class': request.form['character_class'],
+        'ability_scores': {
+            'Strength': request.form['Strength'],
+            'Dexterity': request.form['Dexterity'],
+            'Constitution': request.form['Constitution'],
+            'Intelligence': request.form['Intelligence'],
+            'Wisdom': request.form['Wisdom'],
+            'Charisma': request.form['Charisma']
+        },
+        'character_proficiency_bonus': request.form['character_proficiency_bonus'],
+        'character_hp': request.form['character_hp'],
+        'character_ac': request.form['character_ac'],
+        'character_alignment': request.form['character_alignment'],
+        'character_skills': {
+            'Acrobatics': request.form['Acrobatics'],
+            'Animal Handling': request.form['AnimalHandling'],
+            'Arcana': request.form['Arcana'],
+            'Athletics': request.form['Athletics'],
+            'Deception': request.form['Deception'],
+            'History': request.form['History'],
+            'Insight': request.form['Insight'],
+            'Intimidation': request.form['Intimidation'],
+            'Investigation': request.form['Investigation'],
+            'Medicine': request.form['Medicine'],
+            'Nature': request.form['Nature'],
+            'Perception': request.form['Perception'],
+            'Performance': request.form['Performance'],
+            'Persuasion': request.form['Persuasion'],
+            'Religion': request.form['Religion'],
+            'Sleight of Hand': request.form['SleightOfHand'],
+            'Stealth': request.form['Stealth'],
+            'Survival': request.form['Survival']
+        },
+        'character_languages': request.form.getlist('selectedLanguages'),
+        'character_spells': request.form.getlist('selectedSpells'),
+        'character_equipment': request.form.getlist('selectedEquipment'),
+        'character_appearance': request.form['character_appearance'],
+        'character_personality_traits': request.form['character_personality_traits'],
+        'character_backstory': request.form['character_backstory']
+    }
+
+    characters_table.put_item(
+        Item=character
+    )
+
+    return render_template('character_manage.html', user=session['user'])
+
+
+@app.route('/character_manage', methods=['GET'])
+def character_manage():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    return render_template('character_manage.html', user=session['user'])
