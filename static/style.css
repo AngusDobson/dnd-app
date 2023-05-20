@@ -562,7 +562,6 @@ button:hover {
 .character-container {  
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   margin-bottom: 20px;
   padding: 20px;
   padding-bottom: 50px;
@@ -578,7 +577,7 @@ button:hover {
   border-radius: 5px 5px 0px 0px;
 }
 
-.character-details {
+.character-top {
   display: flex;
   justify-content: center;
 }
@@ -610,26 +609,34 @@ button:hover {
   margin-bottom: 0.5rem;
 }
 
+.character-bottom {
+  display: flex;
+}
+
+.character-skills {
+  width: 56%;
+}
+
 .character-extra {
-  padding: 1rem;
+  margin: 20px;  
 }
 
 .character-extra h3 {
   margin-top: 2rem;
 }
 
-.character-info table {
+.character-info table, .character-skills table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1em;
 }
 
-.character-info th, .character-info td {
+.character-info th, .character-info td, .character-skills th, .character-skills td {
   border: 1px solid #333;
   padding: 0.5em;
   text-align: center;
 }
 
-.character-info th {
+.character-info th, .character-skills th {
   text-transform: uppercase;
 }

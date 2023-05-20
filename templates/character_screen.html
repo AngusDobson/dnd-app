@@ -28,7 +28,7 @@
       <a href="{{ url_for('main') }}" class="character-back">Go Back</a>
       <div class="character-taskbar"></div>
       <div class="character-container">
-        <div class="character-details">
+        <div class="character-top">
           <div class="character_img">
             <!-- <img src="{{ character['character_img'] }}" alt="{{ character['character_name'] }}"> -->
             <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/character_img/default_character.png">
@@ -59,6 +59,12 @@
             <p><strong>Hit Points:</strong> {{ character['character_hp'] }}</p>
             <p><strong>Armor Class:</strong> {{ character['character_ac'] }}</p>
             <p><strong>Alignment:</strong> {{ character['character_alignment'] }}</p>
+            <p><strong>Languages:</strong> {{ character['character_languages']|join(', ') }}</p>
+          </div>
+        </div>
+
+        <div class="character-bottom">
+          <div class="character-skills">
             <h3>Skills</h3>
             <table>
               <thead>
@@ -76,25 +82,23 @@
                 {% endfor %}
               </tbody>
             </table>
-            <p><strong>Languages:</strong> {{ character['character_languages']|join(', ') }}</p>
           </div>
-        </div>
+          <div class="character-extra">
+            <h3>Spells</h3>
+            <p>{{ character['character_spells']|join(', ') }}</p>
 
-        <div class="character-extra">
-          <h3>Spells</h3>
-          <p>{{ character['character_spells']|join(', ') }}</p>
+            <h3>Equipment</h3>
+            <p>{{ character['character_equipment']|join(', ') }}</p>
 
-          <h3>Equipment</h3>
-          <p>{{ character['character_equipment']|join(', ') }}</p>
+            <h3>Appearance</h3>
+            <p>{{ character['character_appearance'] }}</p>
 
-          <h3>Appearance</h3>
-          <p>{{ character['character_appearance'] }}</p>
+            <h3>Personality Traits</h3>
+            <p>{{ character['character_personality_traits'] }}</p>
 
-          <h3>Personality Traits</h3>
-          <p>{{ character['character_personality_traits'] }}</p>
-
-          <h3>Backstory</h3>
-          <p>{{ character['character_backstory'] }}</p>
+            <h3>Backstory</h3>
+            <p>{{ character['character_backstory'] }}</p>
+          </div>
         </div>
       </div>
     </div>
