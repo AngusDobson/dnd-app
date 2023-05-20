@@ -38,12 +38,12 @@ def upload_pfp_to_s3(file, bucket_name, acl="public-read"):
 
     return f"https://{bucket_name}.s3.amazonaws.com/user_pfp/{file.filename}"
 
-def upload_charcterimg_to_s3(file, bucket_name, acl="public-read"):
+def upload_characterimg_to_s3(file, bucket_name, acl="public-read"):
     try:
         s3.upload_fileobj(
             file,
             bucket_name,
-            f"charcter_img/{file.filename}",
+            f"character_img/{file.filename}",
             ExtraArgs={
                 "ACL": acl,
                 "ContentType": file.content_type
@@ -53,7 +53,7 @@ def upload_charcterimg_to_s3(file, bucket_name, acl="public-read"):
         print("Something Happened: ", e)
         return e
 
-    return f"https://{bucket_name}.s3.amazonaws.com/charcter_img/{file.filename}"
+    return f"https://{bucket_name}.s3.amazonaws.com/character_img/{file.filename}"
 
 @app.errorhandler(403)
 def forbidden(e):
@@ -440,9 +440,27 @@ def upload_image(character_id):
         return redirect(url_for('character_screen', character_id=character_id))
 
     if file:
-        response = upload_charcterimg_to_s3(file, bucket_name)
+        response = upload_characterimg_to_s3(file, bucket_name)
         if isinstance(response, Exception): 
-            return str(response) 
+            return str(response)
+
+        # Get the URL of the uploaded file
+        uploaded_file_url = response
+
+        # Update the character's image in the database
+        username = session['user']['username']
+        characters_table.update_item(
+            Key={
+                'username': username,
+                'character_id': character_id
+            },
+            UpdateExpression="set character_img = :r",
+            ExpressionAttributeValues={
+                ':r': uploaded_file_url
+            },
+            ReturnValues="UPDATED_NEW"
+        )
 
     return redirect(url_for('character_screen', character_id=character_id))
+
 
