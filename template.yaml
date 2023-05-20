@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: User Profile Lambda Functions
+Resources:
+  UpdatePfpFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: update_pfp/
+      Handler: app.lambda_handler
+      Runtime: python3.10
+      Events:
+        UpdatePfp:
+          Type: Api 
+          Properties:
+            Path: /update_pfp
+            Method: post
+  UpdateUserInfoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: update_userinfo/
+      Handler: app.lambda_handler
+      Runtime: python3.10
+      Events:
+        UpdateUserInfo:
+          Type: Api 
+          Properties:
+            Path: /update_userinfo
+            Method: post
+  ChangePasswordFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: change_password/
+      Handler: app.lambda_handler
+      Runtime: python3.10
+      Events:
+        ChangePassword:
+          Type: Api 
+          Properties:
+            Path: /change_password
+            Method: post

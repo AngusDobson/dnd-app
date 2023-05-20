@@ -16,6 +16,7 @@ boto3.setup_default_session(region_name='ap-southeast-2')
 dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
 users_table = dynamodb.Table('users')
+notes_table = dynamodb.Table('notes')
 bucket_name = 'dnd-app-bucket'
 
 def upload_pfp_to_s3(file, bucket_name, acl="public-read"):
@@ -55,6 +56,7 @@ def register_user():
     email = request.form['email']
     password = request.form['password']
     confirm_password = request.form['confirm_password']
+    notes = 0
 
     if 'pfp_url' in request.files:
         file = request.files['pfp_url']
@@ -88,7 +90,8 @@ def register_user():
             'display_name': display_name,
             'email': email,
             'password': password,
-            'pfp_url': pfp_url
+            'pfp_url': pfp_url,
+            'notes' : notes
         }
     )
 
@@ -179,6 +182,19 @@ def update_userinfo():
 
     return render_template('profile.html', user=session['user'], success_message="User information updated successfully")
 
+@app.route('/notes', methods=['GET'])
+def notes():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    # Fetch notes from DynamoDB
+    response = notes_table.query(
+        KeyConditionExpression=boto3.dynamodb.conditions.Key('username').eq(session['user']['username'])
+    )
+
+    notes = response['Items'] if 'Items' in response else []
+
+    return render_template('notes.html', user=session['user'], notes=notes)
 
 @app.route('/change_password', methods=['POST'])
 def change_password():
@@ -210,3 +226,52 @@ def change_password():
 
     return render_template('profile.html', user=session['user'], success_message="Password changed successfully")
 
+@app.route('/create_note', methods=['POST'])
+def create_note():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    note_name = request.form['note_name']
+    note_content = request.form['note_content']
+
+    # Generate an id 
+    note_id = str(len(session['user']['notes']) + 1)
+
+    # Put new note in DynamoDB table
+    notes_table.put_item(
+        Item={
+            'username': session['user']['username'],
+            'note_id': note_id,
+            'note_name': note_name,
+            'note_content': note_content
+        }
+    )
+
+    # Redirect back to the notes page
+    return redirect(url_for('notes'))  
+
+
+@app.route('/edit_note', methods=['POST'])
+def edit_note():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    note_id = request.form['note_id']
+    note_name = request.form['note_name']
+    note_content = request.form['note_content']
+
+    # Update the note in DynamoDB table
+    notes_table.update_item(
+        Key={
+            'username': session['user']['username'],
+            'note_id': note_id
+        },
+        UpdateExpression='SET note_name = :note_name, note_content = :note_content',
+        ExpressionAttributeValues={
+            ':note_name': note_name,
+            ':note_content': note_content
+        }
+    )
+
+    # Redirect back to the notes page
+    return redirect(url_for('notes'))  

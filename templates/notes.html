@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Tomekeeper - Welcome Traveler!</title>
+</head>
+<body class="main-body">
+    <div class="main-div">
+        <div class="main-taskbar">    
+            <div class="main-logo">
+                <a href="{{ url_for('main') }}">
+                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+                </a>
+            </div>
+            <div class="main-user-info">
+                <a href="/profile" class="profile-link">
+                  <h3 class="main-username">{{ user['display_name'] }}</h3>
+                  <img src="{{ user['pfp_url'] }}" class="main-pfp">
+                </a>
+            </div>
+        </div>
+        <div class="main-section">
+          <div class="note-editor">
+              <form action="/create_note" method="POST">
+                  <label for="noteName">Note Name:</label>
+                  <input type="text" id="noteName" name="note_name" required>
+      
+                  <label for="noteContent">Note Content:</label>
+                  <textarea id="noteContent" name="note_content" required></textarea>
+      
+                  <button type="submit" name="createNote" class="main-button">Create Note</button>
+              </form>
+          </div>
+          <div class="notes-list">
+              {% for note in user.notes %}
+                  <div class="note">
+                      <form action="/edit_note" method="POST">
+                          <input type="hidden" name="note_id" value="{{ note.id }}">
+                          <label for="noteName">Note Name:</label>
+                          <input type="text" id="noteName" name="note_name" value="{{ note.name }}" required>
+      
+                          <label for="noteContent">Note Content:</label>
+                          <textarea id="noteContent" name="note_content" required>{{ note.content }}</textarea>
+      
+                          <button type="submit" name="editNote" class="main-button">Save Note</button>
+                      </form>
+                  </div>
+              {% endfor %}
+          </div>
+        </div>      
+        <div class="main-bottombar">    
+            <div class="main-bottomlogo">
+                <a href="{{ url_for('main') }}">
+                    <img src="https://dnd-app-bucket.s3.ap-southeast-2.amazonaws.com/site-images/tomekeeper_close.png" alt="Logo">
+                </a>
+            </div>
+            <table class="main-bottomtable">
+                <thead>
+                  <tr>
+                    <th><a href="{{ url_for('main') }}">Home</a></th>
+                    <th><a href="{{ url_for('main') }}">Character</a></th>
+                    <th><a href="/logout">Logout</a></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="/profile">Profile</a></td>
+                    <td><a href="/create_character">Create</a></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><a href="/about">About</a></td>
+                    <td><a href="/manage_character">Manage</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
