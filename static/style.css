@@ -586,7 +586,7 @@ button:hover {
 .character_img {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 70%;
 }
 
 .character_img img {
@@ -616,4 +616,20 @@ button:hover {
 
 .character-extra h3 {
   margin-top: 2rem;
+}
+
+.character-info table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.character-info th, .character-info td {
+  border: 1px solid #333;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.character-info th {
+  text-transform: uppercase;
 }
