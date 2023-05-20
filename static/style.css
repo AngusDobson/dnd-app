@@ -507,27 +507,33 @@ button:hover {
   width: 50%;
 }
 
-
 /* Manage Character Style */
 
 .character-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1em;
 }
 
 .character-card {
+  flex: 1 0 20%;
   background-size: cover;
   background-position: center;
   position: relative;
   height: 200px;
+  max-width: 200px;
+  border-radius: 15px;
 }
 
 .character-name {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 1em;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--background-color);
+  background-color: rgba(136, 171, 148, 0.75);
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-radius: 0px 0px 15px 15px;
 }
