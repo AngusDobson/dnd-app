@@ -56,7 +56,6 @@ def register_user():
     email = request.form['email']
     password = request.form['password']
     confirm_password = request.form['confirm_password']
-    notes = 0
 
     if 'pfp_url' in request.files:
         file = request.files['pfp_url']
@@ -90,8 +89,7 @@ def register_user():
             'display_name': display_name,
             'email': email,
             'password': password,
-            'pfp_url': pfp_url,
-            'notes' : notes
+            'pfp_url': pfp_url
         }
     )
 
@@ -237,8 +235,12 @@ def create_note():
     note_name = request.form['note_name']
     note_content = request.form['note_content']
 
-    # Generate an id 
-    note_id = str(len(session['user']['notes']) + 1)
+    # Perform a scan operation to get the count of existing notes
+    response = notes_table.scan(Select='COUNT')
+    note_count = response['Count']
+
+    # Generate the note ID based on the note count
+    note_id = str(note_count + 1)
 
     # Put new note in DynamoDB table
     notes_table.put_item(
