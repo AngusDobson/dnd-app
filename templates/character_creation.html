@@ -347,13 +347,21 @@
           input.addEventListener('input', function() {
             // Calculate HP
             let constitutionScore = parseInt(document.getElementById('Constitution').value) || 0;
-            let baseHP = 10 + constitutionScore; // For simplicity, assuming a base HP of 10 plus the Constitution score
+            let baseHP = 10 + constitutionScore; 
             document.getElementById('characterHP').value = baseHP;
     
             // Calculate AC
             let dexterityScore = parseInt(document.getElementById('Dexterity').value) || 0;
-            let baseAC = 10 + Math.floor((dexterityScore - 10) / 2); // For simplicity, assuming base AC of 10 plus Dexterity modifier
+            let baseAC = 10 + Math.floor((dexterityScore - 10) / 2); 
             document.getElementById('characterAC').value = baseAC;
+
+            // Trigger 'change' event on all skill selectors that are tied to this ability to update skill scores
+            for (let skill in skillToAbility) {
+              if (skillToAbility[skill] === input.id) {
+                const event = new Event('change', { bubbles: true });
+                document.getElementById(skill + 'Selector').dispatchEvent(event);
+              }
+            }
           });
         });
     
