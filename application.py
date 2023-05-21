@@ -689,7 +689,7 @@ def add_relationship():
             ReturnValues="UPDATED_NEW"
         )
 
-        return redirect(url_for('character_relationships', user=session['user'], character=character))
+        return redirect(url_for('character_relationships', user=session['user'], character_id=character_id))
 
 @app.route('/character_party/<character_id>', methods=['GET'])
 def character_party(character_id):
