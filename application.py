@@ -692,8 +692,7 @@ def search_characters(character_id):
 
     search_results = response['Items']
 
-    return redirect(url_for('character_party', character_id=character_id, character=character, search_results=search_results))
-
+    return render_template('character_party.html', user=session['user'], character=character, search_results=search_results)
 
 @app.route('/add_to_party/<character_id>/<member_id>', methods=['GET'])
 def add_to_party(character_id, member_id):
