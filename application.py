@@ -694,15 +694,15 @@ def search_characters(character_id):
 
     return render_template('character_party.html', user=session['user'], character=character, search_results=search_results)
 
-@app.route('/add_to_party/<character_id>/<member_id>', methods=['GET'])
-def add_to_party(character_id, member_id):
+@app.route('/add_to_party/<character_id>/<member_id>/<member_username>', methods=['GET'])
+def add_to_party(character_id, member_id, member_username):
     if 'user' not in session:
         abort(403)  # Forbidden, user not logged in
 
     # Fetch the character to be added
     response = characters_table.get_item(
         Key={
-            'username': session['user']['username'],
+            'username': member_username,
             'character_id': member_id
         }
     )
@@ -745,7 +745,7 @@ def add_to_party(character_id, member_id):
         ReturnValues="UPDATED_NEW"
     )
 
-    return render_template('character_party.html', user=session['user'], character=character)
+    return redirect(url_for('character_party', character_id=character_id))
 
 @app.route('/character_level_up/<character_id>', methods=['GET'])
 def character_level_up(character_id):

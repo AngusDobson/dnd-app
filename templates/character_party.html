@@ -60,7 +60,7 @@
               <ul>
                 {% for result in search_results %}
                 <li>{{ result['character_name'] }} <a
-                    href="{{ url_for('add_to_party', character_id=character['character_id'], member_id=result['character_id']) }}">Add
+                    href="{{ url_for('add_to_party', character_id=character['character_id'], member_id=result['character_id'], member_username=result['username']) }}"> + Add
                     to Party</a></li>
                 {% endfor %}
               </ul>
