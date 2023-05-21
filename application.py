@@ -745,7 +745,7 @@ def add_to_party(character_id, member_id):
         ReturnValues="UPDATED_NEW"
     )
 
-    return redirect(url_for('character_party', character_id=character_id))
+    return render_template('character_party.html', user=session['user'], character=character)
 
 @app.route('/character_level_up/<character_id>', methods=['GET'])
 def character_level_up(character_id):

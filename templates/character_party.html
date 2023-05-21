@@ -40,7 +40,7 @@
           <div class="character-container">
             <div>
               <h2>Add Characters to your Party</h2>
-              <h3>Current Party</h3>
+              <h3>Current Party for {{ character['character_name'] }}</h3>
               <ul>
                 {% for members in character['character_party'] %}
                 <li>{{ members }}</li>
