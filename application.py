@@ -243,7 +243,7 @@ def notes():
     notes = response['Items'] if 'Items' in response else []
 
     for note in notes:
-        note['note_id'] = str(note['note_id'])  # Convert the 'id' field to string
+        note['note_id'] = str(note['note_id'])
 
     return render_template('notes.html', user=session['user'], notes=notes)
 
@@ -510,7 +510,6 @@ def update_equipment():
         ReturnValues="UPDATED_NEW"
     )
 
-    # After updating the equipment, redirect the user back to the character page
     return redirect(url_for('character_equipment', character_id=character_id))
     
 @app.route('/character_edit/<character_id>', methods=['GET'])

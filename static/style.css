@@ -582,7 +582,7 @@ button:hover {
 
 .character-taskbar a {
   color: var(--background-color);
-  margin: 50px;
+  margin: 7%;
 }
 
 .character-taskbar p {
