@@ -643,7 +643,54 @@ def character_relationships(character_id):
         character = response['Item']
 
         return render_template('character_relationships.html', user=session['user'], character=character)
-    
+
+@app.route('/add_relationship', methods=['POST'])
+def add_relationship():
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Extract character_id from the form
+    character_id = request.form['character_id']
+
+    # Retrieve form fields
+    npc_name = request.form['npc_name']
+    npc_status = request.form['npc_status']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+        # Update character_relationships field
+        if 'character_relationships' not in character:
+            character['character_relationships'] = {}
+
+        character['character_relationships'][npc_name] = npc_status
+
+        # Update the character in the database
+        characters_table.update_item(
+            Key={
+                'username': username,
+                'character_id': character_id
+            },
+            UpdateExpression="set character_relationships = :r",
+            ExpressionAttributeValues={
+                ':r': character['character_relationships']
+            },
+            ReturnValues="UPDATED_NEW"
+        )
+
+        return redirect(url_for('character_relationships', user=session['user'], character=character))
+
 @app.route('/character_party/<character_id>', methods=['GET'])
 def character_party(character_id):
     if 'user' not in session:

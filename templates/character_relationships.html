@@ -38,7 +38,28 @@
           </div>
             
           <div class="character-container">
-
+            <div>
+              <h2>Current NPC Relationships for {{ character['character_name'] }}</h2>
+              <ul>
+                {% for npc, status in character['character_relationships'].items() %}
+                <li>{{ npc }} - {{ status }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="char-creation-info">
+              <form action="/add_relationship" method="POST" class="char-creation-form">
+                <input type="hidden" name="character_id" value="{{ character['character_id'] }}">                
+                <label for="npcName">NPC Name:</label>
+                <input id="npcName" name="npc_name"></input>
+                <label for="npcStatus">Relationship:</label>
+                <select id="npcStatus" name="npc_status" required>
+                  <option>Friendly</option>
+                  <option>Neutral</option>
+                  <option>Enemy</option>
+                </select>
+                <button>Add Relationship</button>
+              </form>
+            </div>
           </div>
 
         </div>        
