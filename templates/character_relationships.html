@@ -41,9 +41,11 @@
             <div>
               <h2>Current NPC Relationships for {{ character['character_name'] }}</h2>
               <ul>
-                {% for npc, status in character['character_relationships'].items() %}
-                <li>{{ npc }} - {{ status }}</li>
-                {% endfor %}
+                {% if 'character_relationships' in character %}
+                  {% for npc, status in character['character_relationships'].items() %}
+                    <li>{{ npc }} - {{ status }}</li>
+                  {% endfor %}
+                {% endif %}              
               </ul>
             </div>
             <div class="char-creation-info">
