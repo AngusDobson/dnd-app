@@ -38,7 +38,32 @@
           </div>
              
           <div class="character-container">
-
+            <div>
+              <h2>Add Characters to your Party</h2>
+              <h3>Current Party</h3>              
+              <ul>
+                {% for members in character['character_party'] %}
+                <li>{{ members }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div>
+              <h3>Search for Characters</h3>
+              <form action="{{ url_for('search_characters') }}" method="POST">
+                <label for="searchTerm">Name: </label>
+                <input type="text" id="searchTerm" name="search_term">
+                <button type="submit">Search</button>
+              </form>
+            
+              {% if search_results is defined %}
+                <h3>Search Results:</h3>
+                <ul>
+                  {% for result in search_results %}
+                    <li>{{ result['character_name'] }} <a href="{{ url_for('add_to_party', character_id=character['character_id'], member_id=result['character_id']) }}">Add to Party</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
           </div>
 
         </div>        

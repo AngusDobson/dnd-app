@@ -463,7 +463,6 @@ def upload_image(character_id):
 
     return redirect(url_for('character_screen', character_id=character_id))
 
-
 @app.route('/character_equipment/<character_id>', methods=['GET'])
 def character_equipment(character_id):
     if 'user' not in session:
@@ -665,7 +664,89 @@ def character_party(character_id):
         character = response['Item']
 
         return render_template('character_party.html', user=session['user'], character=character)
-    
+
+@app.route('/search_characters/<character_id>', methods=['POST'])
+def search_characters(character_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    username = session['user']['username']
+
+    # Query DynamoDB to get the specific character by character_id
+    response = characters_table.get_item(
+        Key={
+            'username': username,
+            'character_id': character_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' in response:
+        character = response['Item']
+
+    search_term = request.form['search_term']
+
+    response = characters_table.scan(
+        FilterExpression=Attr('character_name').contains(search_term)
+    )
+
+    search_results = response['Items']
+
+    return redirect(url_for('character_party', character=character, search_results=search_results))
+
+
+@app.route('/add_to_party/<character_id>/<member_id>', methods=['GET'])
+def add_to_party(character_id, member_id):
+    if 'user' not in session:
+        abort(403)  # Forbidden, user not logged in
+
+    # Fetch the character to be added
+    response = characters_table.get_item(
+        Key={
+            'character_id': member_id
+        }
+    )
+
+    # Check if item found
+    if 'Item' not in response:
+        abort(404)  # Not found, no character with this id
+
+    member = response['Item']
+
+    # Fetch the characters_table owner character
+    response = characters_table.get_item(
+        Key={
+            'character_id': character_id
+        }
+    )
+
+    if 'Item' not in response:
+        abort(404)  # Not found, no character with this id
+
+    character = response['Item']
+
+    # Update party list
+    if 'character_party' not in character:
+        character['character_party'] = []
+
+    character['character_party'].append(member['character_name'])
+
+    # Update the character in the database
+    characters_table.update_item(
+        Key={
+            'character_id': character_id
+        },
+        UpdateExpression="set character_party = :p",
+        ExpressionAttributeValues={
+            ':p': character['character_party']
+        },
+        ReturnValues="UPDATED_NEW"
+    )
+
+    return redirect(url_for('character_party', character_id=character_id))
+
+
+
 @app.route('/character_level_up/<character_id>', methods=['GET'])
 def character_level_up(character_id):
     if 'user' not in session:
